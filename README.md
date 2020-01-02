@@ -5,7 +5,7 @@ Repository for the [Swing Tutorial](http://zetcode.com/tutorials/javaswingtutori
 The tutorial includes:
 
 - [x] Introduction
-- [ ] First programs
+- [x] First programs
 - [ ] Menus and toolbars
 - [ ] Swing layout management
 - [ ] GroupLayout manager
