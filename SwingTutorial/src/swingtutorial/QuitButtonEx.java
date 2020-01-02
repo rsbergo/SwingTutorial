@@ -68,6 +68,7 @@ public class QuitButtonEx extends JFrame
         gl.setVerticalGroup(gl.createSequentialGroup().addComponent(arg[0]));
     }
     
+    // Driver
     public static void main(String[] args)
     {
         EventQueue.invokeLater(() ->
