@@ -1,4 +1,4 @@
-package swingtutorial;
+package firstprograms;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;

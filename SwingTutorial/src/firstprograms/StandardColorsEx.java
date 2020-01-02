@@ -1,4 +1,4 @@
-package swingtutorial;
+package firstprograms;
 
 import java.awt.Color;
 import java.awt.Dimension;
