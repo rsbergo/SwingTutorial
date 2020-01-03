@@ -167,3 +167,9 @@ menuBar.add(fileMenu);
 ```
 
 `setJMenuBar()` method sets the menubar for the JFrame container.
+
+Menus can also have submenus, similar commands can be put into groups. Within a menu, commands can be separated with a separator. The separator is a simple line. In addition to mnemonics, menu commands can be launched via accelerators.
+
+A submenu is just like any other menu. It is created the same way. Just add a menu to existing menu.
+
+A separator is a visual line that visually separates menu items. It can be used to group items into some logical places.

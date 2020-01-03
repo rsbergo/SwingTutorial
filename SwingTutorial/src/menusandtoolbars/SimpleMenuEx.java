@@ -46,7 +46,7 @@ public class SimpleMenuEx extends JFrame
         var menuBar = new JMenuBar();
         
         // An Exit icon is displayed in the menu.
-        var exitIcon = new ImageIcon("scr/Resources/exit.png");
+        var exitIcon = new ImageIcon("src/Resources/exit.png");
         
         // A menu object is created with JMenu and a mnemonic is bound to it.
         var fileMenu = new JMenu("File");
