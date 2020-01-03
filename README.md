@@ -173,3 +173,7 @@ Menus can also have submenus, similar commands can be put into groups. Within a 
 A submenu is just like any other menu. It is created the same way. Just add a menu to existing menu.
 
 A separator is a visual line that visually separates menu items. It can be used to group items into some logical places.
+
+Mnemonics and accelerators are shortcut keys that enable executing commands via keyboard. Mnemonics navigate the menu hierarchy to select a specific menu item whereas accelerators bypass menu hierarchy and directly activate the menu item. To use a mnemonic, the component must be visible on the screen. First, the menu object must be activated, which makes the Exit menu item visible on the screen. An accelerator is a key shortcut that directly launches a menu item. Mnemonics are visually hinted by underlined characters, the accelerators have their shortcut keys shown next to the menu item's label.
+
+Actions use various keys to define their functionality. The putValue() method associates string values with the specified keys.
