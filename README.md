@@ -152,3 +152,18 @@ addMouseMotionListener(new MouseMotionAdapter()
     }
 });
 ```
+
+## Menus and Toolbars
+
+A menu is a group of commands located in a menubar. A toolbar has buttons with some common commands in the application.
+
+A menubar is created with JMenuBar. A menu object is created with JMenu. A menu object consists of menu items. A menu item is created with JMenuItem. JMenuItem is a special kind of a button component and can have an action listener added to it.
+
+The menu item is added to the menu object and the menu object is inserted into the menu bar.
+
+```
+fileMenu.add(eMenuItem);
+menuBar.add(fileMenu);
+```
+
+`setJMenuBar()` method sets the menubar for the JFrame container.
