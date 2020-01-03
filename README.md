@@ -30,7 +30,10 @@ The `invokeLater()` method places the application on the Swing Event Queue. It i
 `var` allows variable type inference; the type for the local variable will be inferred by the compiler.
 
 Plug an action listener to the button. The action terminates the application:
-```quitButton.addActionListener((event) -> System.exit(0));```
+
+```
+quitButton.addActionListener((event) -> System.exit(0));
+```
 
 The content pane of a JFrame is an area where child components are placed. The children are organized by special non-visible components called layout managers.
 
