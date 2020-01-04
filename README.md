@@ -152,3 +152,77 @@ addMouseMotionListener(new MouseMotionAdapter()
     }
 });
 ```
+
+## Menus and Toolbars
+
+A menu is a group of commands located in a menubar. A toolbar has buttons with some common commands in the application.
+
+A menubar is created with JMenuBar. A menu object is created with JMenu. A menu object consists of menu items. A menu item is created with JMenuItem. JMenuItem is a special kind of a button component and can have an action listener added to it.
+
+The menu item is added to the menu object and the menu object is inserted into the menu bar.
+
+```
+fileMenu.add(eMenuItem);
+menuBar.add(fileMenu);
+```
+
+`setJMenuBar()` method sets the menubar for the JFrame container.
+
+Menus can also have submenus, similar commands can be put into groups. Within a menu, commands can be separated with a separator. The separator is a simple line. In addition to mnemonics, menu commands can be launched via accelerators.
+
+A submenu is just like any other menu. It is created the same way. Just add a menu to existing menu.
+
+A separator is a visual line that visually separates menu items. It can be used to group items into some logical places.
+
+Mnemonics and accelerators are shortcut keys that enable executing commands via keyboard. Mnemonics navigate the menu hierarchy to select a specific menu item whereas accelerators bypass menu hierarchy and directly activate the menu item. To use a mnemonic, the component must be visible on the screen. First, the menu object must be activated, which makes the Exit menu item visible on the screen. An accelerator is a key shortcut that directly launches a menu item. Mnemonics are visually hinted by underlined characters, the accelerators have their shortcut keys shown next to the menu item's label.
+
+Actions use various keys to define their functionality. The putValue() method associates string values with the specified keys.
+
+A JCheckBoxMenuItem is a meny item that can be selected or deselected. If selected, the menu item typically appears with a checkmark next to it. If unselected or deselected, the menu item appears without a checkmark. Like a regular menu item, a check box menu item can have either a text or a graphic icon associated with it, or both.
+
+Choose which letter is going to be underlined.
+
+```
+showStatusBarMenuItem.setDisplayedMnemonicIndex(5);
+```
+
+`JCheckBoxMenuItem` is a special kind of a button component. It implements the `ItemSelectable` interface. An `ItemListener` can be used to listen to its state changes. The `getStateChange()` determines the type of state change. If the change is `ItemEvent.SELECTED`, the status statusbar is changed.
+
+```
+showStatusBarMenuItem.addItemListener((e) ->
+{
+    if (e.getStateChange() == ItemEvent.SELECTED)
+        statusBar.setVisible(true);
+    else
+        statusBar.setVisible(false);
+});
+```
+
+JRadioButtonMenuItem enabled to select from a mutually exclusive list of options. Selecting a particular JRadioButtonMenuItem deselects all other items. JRadioButtonMenuItems are placed into a ButtonGroup.
+
+The ButtonGroup is used to create a multiple-exclusion scope for a set of buttons. The JRadioButtonMenuItem must be placed on both the JMenu and the ButtonGroup.
+
+`Box.createHorizontalGlue()` adds a horizontal glue to the menubar. A glue absorbs all the extra space available, pushing the remaining menus to the right of the menubar.
+
+A popup menu is another type of menu. It is also called a context menu and usually shown when we right click on a component. The idea is to provide only the commands that are relevant in the current context. Say we have an image. By right clicking on the image, we get a popup window with commands to save, scale, or move the image.
+
+A popup menu consists of `JMenuItems`. The `getExtendedState()` method determines the state of the frame. The available states are `NORMAL`, `ICONIFIED`, `MAXIMIZED_HORIZ`, `MAXIMIZED_VERT`, and `MAXIMIZED_BOTH`. Once the frame is maximized, the menu item is disabled with `setEnabled()` method.
+
+```
+addMouseListener(new MouseAdapter()
+{
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+        if (getExtendedState() != JFrame.MAXIMIZED_BOTH)
+            maximizeMenuItem.setEnabled(true);
+        
+        if (e.getButton() == MouseEvent.BUTTON3)
+                popupMenu.show(e.getComponent(), e.getX(), e.getY());
+    }
+});
+```
+
+Toolbars provide a quick access to the most frequently used commands. In Java Swing, the JToolBar class creates a toolbar in an application.
+
+A toolbar is created with `JToolBar`. A button inserted into a toolbar is a regular `JButton`. The toolbar is placed to the north area of the `BorderLayout`. `BorderLayout` is the default layout manager for the content pane of a `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `Applet`.
