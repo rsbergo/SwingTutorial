@@ -1,5 +1,6 @@
 package menusandtoolbars;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -41,28 +42,78 @@ public class ToolbarsEx extends JFrame
      */
     private void createToolBars()
     {
-        var toolbar1 = new JToolBar();
-        var toolbar2 = new JToolBar();
+        JToolBar toolbar1 = createToolBar1();
+        JToolBar toolbar2 = createToolBar2();
         
-        var newIcon = new ImageIcon("src/Resources/new2.png");
-        var openIcon = new ImageIcon("src/Resources/open2.png");
-        var saveIcon = new ImageIcon("src/Resources/save2.png");
-        var exitIcon = new ImageIcon("src/Resources/exit2.png");
-        
-        var newBtn = new JButton(newIcon);
-        var openBtn = new JButton(openIcon);
-        var saveBtn = new JButton(saveIcon);
-        
-        toolbar1.add(newBtn);
-        toolbar1.add(openBtn);
-        toolbar1.add(saveBtn);
-        
-        var exitBtn = new JButton(exitIcon);
-        toolbar2.add(exitBtn);
-        
-        exitBtn.addActionListener((e) -> System.exit(0));
         
         createLayout(toolbar1, toolbar2);
+    }
+    
+    /**
+     * Create the first toolbar.
+     */
+    private JToolBar createToolBar1()
+    {
+        JToolBar toolbar = new JToolBar();
+        
+        toolbar.add(createNewToolBarButton());
+        toolbar.add(createOpenToolBarButton());
+        toolbar.add(createSaveToolBarButton());
+        
+        return toolbar;
+    }
+    
+    /**
+     * Create the second toolbar.
+     * @return
+     */
+    private JToolBar createToolBar2()
+    {
+        JToolBar toolbar = new JToolBar();
+        toolbar.add(createExitToolBarButton());
+        return toolbar;
+    }
+    
+    /**
+     * Create a toolbar button.
+     */
+    private JButton createToolBarButton(ImageIcon icon)
+    {
+        return new JButton(icon);
+    }
+    
+    /**
+     * Create the new button for a toolbar.
+     */
+    private JButton createNewToolBarButton()
+    {
+        return createToolBarButton(new ImageIcon("src/Resources/new2.png"));
+    }
+    
+    /**
+     * Create the open button for a toolbar.
+     */
+    private JButton createOpenToolBarButton()
+    {
+        return createToolBarButton(new ImageIcon("src/Resources/open2.png"));
+    }
+    
+    /**
+     * Create the save button for a toolbar.
+     */
+    private JButton createSaveToolBarButton()
+    {
+        return createToolBarButton(new ImageIcon("src/Resources/save2.png"));
+    }
+    
+    /**
+     * Create the exit button for a toolbar.
+     */
+    private JButton createExitToolBarButton()
+    {
+        JButton btn = createToolBarButton(new ImageIcon("src/Resources/exit2.png"));
+        btn.addActionListener((e) -> System.exit(0));
+        return btn;
     }
     
     /**
@@ -72,15 +123,23 @@ public class ToolbarsEx extends JFrame
      */
     private void createLayout(JComponent... arg)
     {
-        var pane = getContentPane();
-        var gl = new GroupLayout(pane);
+        Container pane = getContentPane();
+        GroupLayout gl = new GroupLayout(pane);
         pane.setLayout(gl);
         
-        gl.setHorizontalGroup(gl.createParallelGroup()
-                .addComponent(arg[0], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(arg[1], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        // Create the horizontal group for GroupLayout.
+        GroupLayout.ParallelGroup hGroup = gl.createParallelGroup();
+        hGroup.addComponent(arg[0], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+        hGroup.addComponent(arg[1], GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         
-        gl.setVerticalGroup(gl.createSequentialGroup().addComponent(arg[0]).addComponent(arg[1]));
+        // Create the vertical group for GroupLayout.
+        GroupLayout.SequentialGroup vGroup = gl.createSequentialGroup();
+        vGroup.addComponent(arg[0]);
+        vGroup.addComponent(arg[1]);
+        
+        // Set both groups to GroupLayout.
+        gl.setHorizontalGroup(hGroup);
+        gl.setVerticalGroup(vGroup);
     }
     
     // Driver
