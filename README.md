@@ -203,3 +203,22 @@ JRadioButtonMenuItem enabled to select from a mutually exclusive list of options
 The ButtonGroup is used to create a multiple-exclusion scope for a set of buttons. The JRadioButtonMenuItem must be placed on both the JMenu and the ButtonGroup.
 
 `Box.createHorizontalGlue()` adds a horizontal glue to the menubar. A glue absorbs all the extra space available, pushing the remaining menus to the right of the menubar.
+
+A popup menu is another type of menu. It is also called a context menu and usually shown when we right click on a component. The idea is to provide only the commands that are relevant in the current context. Say we have an image. By right clicking on the image, we get a popup window with commands to save, scale, or move the image.
+
+A popup menu consists of `JMenuItems`. The `getExtendedState()` method determines the state of the frame. The available states are `NORMAL`, `ICONIFIED`, `MAXIMIZED_HORIZ`, `MAXIMIZED_VERT`, and `MAXIMIZED_BOTH`. Once the frame is maximized, the menu item is disabled with `setEnabled()` method.
+
+```
+addMouseListener(new MouseAdapter()
+{
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+        if (getExtendedState() != JFrame.MAXIMIZED_BOTH)
+            maximizeMenuItem.setEnabled(true);
+        
+        if (e.getButton() == MouseEvent.BUTTON3)
+                popupMenu.show(e.getComponent(), e.getX(), e.getY());
+    }
+});
+```
