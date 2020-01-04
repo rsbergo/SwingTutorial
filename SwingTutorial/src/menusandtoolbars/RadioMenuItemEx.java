@@ -1,11 +1,14 @@
 package menusandtoolbars;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,11 +40,8 @@ public class RadioMenuItemEx extends JFrame
      */
     private void initUI()
     {
+        createStatusBar();
         createMenuBar();
-        
-        statusBar = new JLabel("Easy");
-        statusBar.setBorder(BorderFactory.createEtchedBorder());
-        add(statusBar, BorderLayout.SOUTH);
         
         setTitle("JRadioButtonMenuItem");
         setSize(360, 250);
@@ -50,54 +50,75 @@ public class RadioMenuItemEx extends JFrame
     }
     
     /**
+     * Create the statusbar.
+     */
+    private void createStatusBar()
+    {
+        statusBar = new JLabel("Easy");
+        statusBar.setBorder(BorderFactory.createEtchedBorder());
+        add(statusBar, BorderLayout.SOUTH);
+    }
+    
+    /**
      * Creates the menubar.
+     * 
+     * JMenuItems are added to an underlying JPopupMenu, so getComponents must be called from difMenu's getPopupMenu().
      */
     private void createMenuBar()
     {
-        var menuBar = new JMenuBar();
-        var difMenu = new JMenu("Difficulty");
-        difMenu.setMnemonic(KeyEvent.VK_F);
+        JMenu difMenu = createDifficultyMenu();
+        createDifficultyButtonGroup(difMenu.getPopupMenu().getComponents());
         
-        // The ButtonGroup is used to create a multiple-exclusion scope for a set of buttons. The JRadioButtonMenuItem
-        // must be placed on both the JMenu and the ButtonGroup.
-        var difGroup = new ButtonGroup();
-        
-        var easyRMenuItem = new JRadioButtonMenuItem("Easy");
-        easyRMenuItem.setSelected(true);
-        difMenu.add(easyRMenuItem);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(difMenu);
+        setJMenuBar(menuBar);
+    }
+    
+    /**
+     * Create the easy menu option.
+     */
+    private JRadioButtonMenuItem createMenuOption(String text, boolean selected)
+    {
+        JRadioButtonMenuItem rMenuItem = new JRadioButtonMenuItem(text);
+        rMenuItem.setSelected(selected);
         
         // The getStateChange() determines the type of state change. If the change is ItemEvent.SELECTED, the status on
         // the statusbar is changed.
-        easyRMenuItem.addItemListener((e) ->
+        rMenuItem.addItemListener((e) ->
         {
             if (e.getStateChange() == ItemEvent.SELECTED)
-                statusBar.setText("Easy");
+                statusBar.setText(text);
         });
+        return rMenuItem;
+    }
+    
+    /**
+     * Create the difficulty menu.
+     */
+    private JMenu createDifficultyMenu()
+    {
+        JMenu difMenu = new JMenu("Difficulty");
+        difMenu.setMnemonic(KeyEvent.VK_F);
         
-        var mediumRMenuItem = new JRadioButtonMenuItem("Medium");
-        difMenu.add(mediumRMenuItem);
+        difMenu.add(createMenuOption("Easy", true));
+        difMenu.add(createMenuOption("Medium", false));
+        difMenu.add(createMenuOption("Hard", false));
         
-        mediumRMenuItem.addItemListener((e) ->
+        return difMenu;
+    }
+    
+    /**
+     * The ButtonGroup is used to create a multiple-exclusion scope for a set of buttons. The JRadioButtonMenuItem must
+     * be placed on both the JMenu and the ButtonGroup.
+     */
+    private void createDifficultyButtonGroup(Component... arg)
+    {
+        ButtonGroup difGroup = new ButtonGroup();
+        for (Component comp : arg)
         {
-            if (e.getStateChange() == ItemEvent.SELECTED)
-                statusBar.setText("Medium");
-        });
-        
-        var hardRMenuItem = new JRadioButtonMenuItem("Hard");
-        difMenu.add(hardRMenuItem);
-        
-        hardRMenuItem.addItemListener((e) ->
-        {
-            if (e.getStateChange() == ItemEvent.SELECTED)
-                statusBar.setText("Hard");
-        });
-        
-        difGroup.add(easyRMenuItem);
-        difGroup.add(mediumRMenuItem);
-        difGroup.add(hardRMenuItem);
-        
-        menuBar.add(difMenu);
-        setJMenuBar(menuBar);
+            if (comp instanceof JRadioButtonMenuItem)
+                difGroup.add((JRadioButtonMenuItem) comp);
+        }
     }
     
     // Driver
