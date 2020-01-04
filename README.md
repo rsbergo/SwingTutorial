@@ -222,3 +222,7 @@ addMouseListener(new MouseAdapter()
     }
 });
 ```
+
+Toolbars provide a quick access to the most frequently used commands. In Java Swing, the JToolBar class creates a toolbar in an application.
+
+A toolbar is created with `JToolBar`. A button inserted into a toolbar is a regular `JButton`. The toolbar is placed to the north area of the `BorderLayout`. `BorderLayout` is the default layout manager for the content pane of a `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `Applet`.
