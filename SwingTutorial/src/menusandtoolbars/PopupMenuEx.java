@@ -1,5 +1,6 @@
 package menusandtoolbars;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,10 +32,28 @@ public class PopupMenuEx extends JFrame
     
     /**
      * Initialize the UI.
+     * 
+     * getMenuItemFromPopupMenu() seems to be a bad choice, but it makes it really easy to add a new JMenuItem to
+     * popupMenu at any position without having to change any other code (specifying the index for getItem(), for
+     * example). It seems that it would be better to have my own class extending JPopupMenu that keeps track of the
+     * position of every menu item that has been added.
      */
     private void initUI()
     {
         createPopupMenu();
+        
+        addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                if (getExtendedState() != JFrame.MAXIMIZED_BOTH)
+                    getMenuItemFromPopupMenu(popupMenu, "Maximize").setEnabled(true);
+                
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
         
         setTitle("JPopupMenu");
         setSize(300, 250);
@@ -56,8 +75,20 @@ public class PopupMenuEx extends JFrame
     private void createPopupMenu()
     {
         popupMenu = new JPopupMenu();
-        
-        var maximizeMenuItem = new JMenuItem("Maximize");
+        popupMenu.add(createMaximizeMenuItem());
+        popupMenu.add(createQuitMenuItem());
+    }
+    
+    /**
+     * Create the maximize popup menu item. When clicked, it maximizes the frame (if not already maximized) and is
+     * disabled.
+     * 
+     * Having a method allows me to use it on both the popup menu as well as on a menubar.
+     */
+    private JMenuItem createMaximizeMenuItem()
+    {
+        JMenuItem maximizeMenuItem = new JMenuItem("Maximize");
+        maximizeMenuItem.setName("Maximize");
         maximizeMenuItem.addActionListener((e) ->
         {
             if (getExtendedState() != JFrame.MAXIMIZED_BOTH)
@@ -66,25 +97,35 @@ public class PopupMenuEx extends JFrame
                 maximizeMenuItem.setEnabled(false);
             }
         });
-        
-        popupMenu.add(maximizeMenuItem);
-        var quitMenuItem = new JMenuItem("Quit");
+        return maximizeMenuItem;
+    }
+    
+    /**
+     * Create the quit menu item. When clicked, it closes the application.
+     */
+    private JMenuItem createQuitMenuItem()
+    {
+        JMenuItem quitMenuItem = new JMenuItem("Quit");
+        quitMenuItem.setName("Quit");
         quitMenuItem.addActionListener((e) -> System.exit(0));
-        
-        popupMenu.add(quitMenuItem);
-        
-        addMouseListener(new MouseAdapter()
+        return quitMenuItem;
+    }
+    
+    /**
+     * Find and get the JMenuItem identified by label.
+     */
+    private JMenuItem getMenuItemFromPopupMenu(JPopupMenu popupMenu, String label)
+    {
+        for (Component comp : popupMenu.getComponents())
         {
-            @Override
-            public void mouseReleased(MouseEvent e)
+            if (comp instanceof JMenuItem)
             {
-                if (getExtendedState() != JFrame.MAXIMIZED_BOTH)
-                    maximizeMenuItem.setEnabled(true);
-                
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                JMenuItem currentComp = (JMenuItem) comp;
+                if (label.equals(currentComp.getName()))
+                    return currentComp;
             }
-        });
+        }
+        return null;
     }
     
     // Driver
