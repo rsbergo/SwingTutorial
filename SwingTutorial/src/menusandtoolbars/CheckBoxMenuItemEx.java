@@ -2,6 +2,7 @@ package menusandtoolbars;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.ItemSelectable;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
@@ -38,11 +39,8 @@ public class CheckBoxMenuItemEx extends JFrame
      */
     private void initUI()
     {
+        createStatusBar();
         createMenuBar();
-        
-        statusBar = new JLabel("Ready");
-        statusBar.setBorder(BorderFactory.createEtchedBorder());
-        add(statusBar, BorderLayout.SOUTH);
         
         setTitle("JCheckBoxMenuItem");
         setSize(360, 250);
@@ -51,18 +49,56 @@ public class CheckBoxMenuItemEx extends JFrame
     }
     
     /**
+     * Creates the statusbar.
+     */
+    private void createStatusBar()
+    {
+        statusBar = new JLabel("Ready");
+        statusBar.setBorder(BorderFactory.createEtchedBorder());
+        add(statusBar, BorderLayout.SOUTH);
+    }
+    
+    /**
      * Create the menubar.
      */
     private void createMenuBar()
     {
         var menuBar = new JMenuBar();
-        var fileMenu = new JMenu("File");
+        menuBar.add(createFileMenu());
+        menuBar.add(createViewMenu());
+        setJMenuBar(menuBar);
+    }
+    
+    /**
+     * Create the File menu.
+     */
+    private JMenu createFileMenu()
+    {
+        JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         
-        var viewMenu = new JMenu("View");
+        return fileMenu;
+    }
+    
+    /**
+     * Create the View Menu.
+     */
+    private JMenu createViewMenu()
+    {
+        JMenu viewMenu = new JMenu("View");
         viewMenu.setMnemonic(KeyEvent.VK_V);
         
-        var showStatusBarMenuItem = new JCheckBoxMenuItem("Show statusbar");
+        viewMenu.add(createShowStatusBarMenuItem());
+        
+        return viewMenu;
+    }
+    
+    /**
+     * Create the show status bar menu item.
+     */
+    private JCheckBoxMenuItem createShowStatusBarMenuItem()
+    {
+        JCheckBoxMenuItem showStatusBarMenuItem = new JCheckBoxMenuItem("Show statusbar");
         showStatusBarMenuItem.setMnemonic(KeyEvent.VK_S);
         
         // Choose which letter is going to be underlined.
@@ -81,11 +117,7 @@ public class CheckBoxMenuItemEx extends JFrame
                 statusBar.setVisible(false);
         });
         
-        viewMenu.add(showStatusBarMenuItem);
-        
-        menuBar.add(fileMenu);
-        menuBar.add(viewMenu);
-        setJMenuBar(menuBar);
+        return showStatusBarMenuItem;
     }
     
     // Driver
