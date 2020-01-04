@@ -186,7 +186,7 @@ Choose which letter is going to be underlined.
 showStatusBarMenuItem.setDisplayedMnemonicIndex(5);
 ```
 
-`JCheckBoxMenuItem` is a special kind of a button component. It implements the `ItemSelectable` interface. An `ItemListener` can be used to listen to its state changes.
+`JCheckBoxMenuItem` is a special kind of a button component. It implements the `ItemSelectable` interface. An `ItemListener` can be used to listen to its state changes. The `getStateChange()` determines the type of state change. If the change is `ItemEvent.SELECTED`, the status statusbar is changed.
 
 ```
 showStatusBarMenuItem.addItemListener((e) ->
@@ -197,3 +197,7 @@ showStatusBarMenuItem.addItemListener((e) ->
         statusBar.setVisible(false);
 });
 ```
+
+JRadioButtonMenuItem enabled to select from a mutually exclusive list of options. Selecting a particular JRadioButtonMenuItem deselects all other items. JRadioButtonMenuItems are placed into a ButtonGroup.
+
+The ButtonGroup is used to create a multiple-exclusion scope for a set of buttons. The JRadioButtonMenuItem must be placed on both the JMenu and the ButtonGroup.
