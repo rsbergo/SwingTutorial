@@ -177,3 +177,23 @@ A separator is a visual line that visually separates menu items. It can be used 
 Mnemonics and accelerators are shortcut keys that enable executing commands via keyboard. Mnemonics navigate the menu hierarchy to select a specific menu item whereas accelerators bypass menu hierarchy and directly activate the menu item. To use a mnemonic, the component must be visible on the screen. First, the menu object must be activated, which makes the Exit menu item visible on the screen. An accelerator is a key shortcut that directly launches a menu item. Mnemonics are visually hinted by underlined characters, the accelerators have their shortcut keys shown next to the menu item's label.
 
 Actions use various keys to define their functionality. The putValue() method associates string values with the specified keys.
+
+A JCheckBoxMenuItem is a meny item that can be selected or deselected. If selected, the menu item typically appears with a checkmark next to it. If unselected or deselected, the menu item appears without a checkmark. Like a regular menu item, a check box menu item can have either a text or a graphic icon associated with it, or both.
+
+Choose which letter is going to be underlined.
+
+```
+showStatusBarMenuItem.setDisplayedMnemonicIndex(5);
+```
+
+`JCheckBoxMenuItem` is a special kind of a button component. It implements the `ItemSelectable` interface. An `ItemListener` can be used to listen to its state changes.
+
+```
+showStatusBarMenuItem.addItemListener((e) ->
+{
+    if (e.getStateChange() == ItemEvent.SELECTED)
+        statusBar.setVisible(true);
+    else
+        statusBar.setVisible(false);
+});
+```
