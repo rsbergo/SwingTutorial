@@ -45,10 +45,17 @@ public class ToolbarEx extends JFrame
     private void createMenuBar()
     {
         var menuBar = new JMenuBar();
-        var fileMenu = new JMenu("File");
-        
-        menuBar.add(fileMenu);
+        menuBar.add(createFileMenu());
         setJMenuBar(menuBar);
+    }
+    
+    /**
+     * Create the file menu.
+     */
+    private JMenu createFileMenu()
+    {
+        JMenu fileMenu = new JMenu("File");
+        return fileMenu;
     }
     
     /**
@@ -60,14 +67,20 @@ public class ToolbarEx extends JFrame
      */
     private void createToolBar()
     {
-        var toolBar = new JToolBar();
-        var icon = new ImageIcon("src/Resources/exit2.png");
-        
-        var exitButton = new JButton(icon);
-        toolBar.add(exitButton);
-        
-        exitButton.addActionListener((e) -> System.exit(0));
+        JToolBar toolBar = new JToolBar();
+        toolBar.add(createExitToolBarButton());
         add(toolBar, BorderLayout.NORTH);
+    }
+    
+    /**
+     * Create the exit button for the toolbar.
+     */
+    private JButton createExitToolBarButton()
+    {
+        ImageIcon icon = new ImageIcon("src/Resources/exit2.png");
+        JButton exitButton = new JButton(icon);
+        exitButton.addActionListener((e) -> System.exit(0));
+        return exitButton;
     }
     
     // Driver
