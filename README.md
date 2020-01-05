@@ -226,3 +226,13 @@ addMouseListener(new MouseAdapter()
 Toolbars provide a quick access to the most frequently used commands. In Java Swing, the JToolBar class creates a toolbar in an application.
 
 A toolbar is created with `JToolBar`. A button inserted into a toolbar is a regular `JButton`. The toolbar is placed to the north area of the `BorderLayout`. `BorderLayout` is the default layout manager for the content pane of a `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `Applet`.
+
+## Swing Layout Management
+
+Java Seing has two kind of components: containers and children. The containers group children into suitable layouts. *Layout managers* are used to create layouts. There are three layout managers that are more suitable in modern UI creation: `MigLayout`, `GroupLayout`, and `FormLayout`. These are powerful, flexible layout managers that can cope with most layout requirements. `FlowLayout`, `GridLayout`, `CardLayout`, `BoxLayout`, `GridBagLayout` are obsolete layout managers that cannot fulfill requirements of a modern UI.
+
+Obsolete layout managers are either too simple or unnecessarily complex. They use fixed gaps between components, which is not portable since the user interface becomes broken once the program is run on different screen resolutions. Obsolete layout managers try to fix their weaknesses by a technique called nesting: developers use several different layout managers in multiple panels. While feasible, it brings additional unnecessary complexity to the code.
+
+The `FlowLayout` manager is the simplest layout manager in the Java Swing toolkit. It is the default layout manager for the `JPanel` component. When calculating its children size, a `FlowLayout` lets each component assume its natural (preferred) size. The manager puts components into a row in the order they were added; if a component does not fit into a row, it goes into the next one. Components can be added from the right to the left or from the left to the right. The manager allows to align the components, but implicitly the components are centered and there is a 5px space between components and components and the edges of the container.
+
+Without setting the preferred size for the `JTextArea` component, the component would have a size of its text. Without the text, the component would not be visible at all. Writing or deleting some text in the component makes it grow and shrink accordingly.
