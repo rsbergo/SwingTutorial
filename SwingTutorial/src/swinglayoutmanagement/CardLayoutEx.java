@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,13 +24,6 @@ import javax.swing.JPanel;
 public class CardLayoutEx extends JFrame
 {
     // Data Fields
-    private ImageIcon horka1;
-    private ImageIcon horka2;
-    private ImageIcon horka3;
-    private ImageIcon horka4;
-    private ImageIcon previ;
-    private ImageIcon nexti;
-    
     private JPanel mainPanel;
     private CardLayout cardLayout;
     
@@ -46,6 +41,64 @@ public class CardLayoutEx extends JFrame
      */
     private void initUI()
     {
+        // Add the main panel to the center area of the border layout of the frame component. If where the component is
+        // to be placed is not explicitly specified, it is added to the center area.
+        add(createMainPanel());
+        
+        // The panel with the buttons is placed into the south area of the BorderLayout manager.
+        add(createButtonPanel(), BorderLayout.SOUTH);
+        
+        pack();
+        
+        setTitle("Gallery");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Create the button panel. Create two buttons to navigate through the images. Clicking on the Previous button calls
+     * the previous() method of the manager. It flips to the previous card of the specified container.
+     */
+    private JPanel createButtonPanel()
+    {
+        JPanel btnPanel = new JPanel();
+        btnPanel.setBackground(new Color(50, 50, 50));
+        btnPanel.add(createButtonForButtonPanel(new ImageIcon("src/Resources/previous.png"), (e) -> cardLayout.previous(mainPanel)));
+        btnPanel.add(createButtonForButtonPanel(new ImageIcon("src/Resources/next.png"), (e) -> cardLayout.next(mainPanel)));
+        return btnPanel;
+    }
+    
+    /**
+     * Create the a button for the Button Panel.
+     */
+    private JButton createButtonForButtonPanel(ImageIcon icon, ActionListener aListener)
+    {
+        JButton previousBtn = new JButton(icon);
+        if (aListener != null)
+            previousBtn.addActionListener(aListener);
+        return previousBtn;
+    }
+    
+    /**
+     * Create a list of labels containing the images to be displayed.
+     */
+    private ArrayList<JLabel> createImageLabels()
+    {
+        ArrayList<JLabel> images = new ArrayList<JLabel>();
+        images.add(new JLabel(new ImageIcon("src/Resources/horka1.jpg")));
+        images.add(new JLabel(new ImageIcon("src/Resources/horka2.jpg")));
+        images.add(new JLabel(new ImageIcon("src/Resources/horka3.jpg")));
+        images.add(new JLabel(new ImageIcon("src/Resources/horka4.jpg")));
+        return images;
+    }
+    
+    /**
+     * Create the main panel.
+     */
+    private JPanel createMainPanel()
+    {
+        mainPanel = new JPanel();
+        
         // Create the main panel component, set its color to dark gray and put 5px around the panel so that its children
         // are not too close to the border of the window.
         mainPanel = new JPanel();
@@ -56,51 +109,11 @@ public class CardLayoutEx extends JFrame
         cardLayout = new CardLayout();
         mainPanel.setLayout(cardLayout);
         
-        horka1 = new ImageIcon("src/Resources/horka1.jpg");
-        horka2 = new ImageIcon("src/Resources/horka2.jpg");
-        horka3 = new ImageIcon("src/Resources/horka3.jpg");
-        horka4 = new ImageIcon("src/Resources/horka4.jpg");
-        
-        previ = new ImageIcon("src/Resources/previous.png");
-        nexti = new ImageIcon("src/Resources/next.png");
-        
-        var label1 = new JLabel(horka1);
-        var label2 = new JLabel(horka2);
-        var label3 = new JLabel(horka3);
-        var label4 = new JLabel(horka4);
-        
         // Add the label components displaying the images to the panel.
-        mainPanel.add(label1);
-        mainPanel.add(label2);
-        mainPanel.add(label3);
-        mainPanel.add(label4);
+        for (JLabel label : createImageLabels())
+            mainPanel.add(label);
         
-        // Add the main panel to the center area of the border layout of the frame component. If where the component is
-        // to be placed is not explicitly specified, it is added to the center area.
-        add(mainPanel);
-        
-        // Create two buttons to navigate through the images. Clicking on the Previous button calls the previous()
-        // method of the manager. It flips to the previous card of the specified container.
-        var prevButton = new JButton(previ);
-        prevButton.addActionListener((e) -> cardLayout.previous(mainPanel));
-        
-        var nextButton = new JButton(nexti);
-        nextButton.addActionListener((e) -> cardLayout.next(mainPanel));
-        
-        // The buttons are added to the button panel.
-        var btnPanel = new JPanel();
-        btnPanel.setBackground(new Color(50, 50, 50));
-        btnPanel.add(prevButton);
-        btnPanel.add(nextButton);
-        
-        // The panel with the buttons is placed into the south area of the BorderLayout manager.
-        add(btnPanel, BorderLayout.SOUTH);
-        
-        pack();
-        
-        setTitle("Gallery");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        return mainPanel;
     }
     
     // Driver
