@@ -42,22 +42,34 @@ public class BorderLayoutEx extends JFrame
      */
     private void initUI()
     {
-        var bottomPanel = new JPanel(new BorderLayout());
-        var topPanel = new JPanel();
-        
-        topPanel.setBackground(Color.gray);
-        topPanel.setPreferredSize(new Dimension(250, 150));
-        bottomPanel.add(topPanel);
-        
-        // Create a 20px border around the bottom panel.
-        bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
-        
-        add(bottomPanel);
+        add(createBottomPanel());
         pack();
         
         setTitle("BorderLayout");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Create the top panel.
+     */
+    private JPanel createTopPanel()
+    {
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(Color.gray);
+        topPanel.setPreferredSize(new Dimension(250, 150));
+        return topPanel;
+    }
+    
+    /**
+     * Create the bottom panel with a 20px border around it.
+     */
+    private JPanel createBottomPanel()
+    {
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
+        bottomPanel.add(createTopPanel());
+        return bottomPanel;
     }
     
     // Driver
