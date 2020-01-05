@@ -261,3 +261,7 @@ bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
 ```
 
 `CardLayout` manager treats each component as a card. The container is a stack of these cards. Only one component is visible at a time, the rest is hidden. The first component added to the container is visible by default when the container is initially displayed. This layout manager can be used to create a wizard or a tabbed pane. Calling the `CardLayout`'s `previous()` or `next()` methods flips to the previous or next card of the specified container.
+
+`BoxLayout` manager organizes components in a column or a row. It can create quite sophisticated layouts with nesting. However, this raises the complexity of the layout creation and uses additional resources, notably many other `JPanel` components. `BoxLayout` is only able to create fixed spaces; therefore, its layouts are not portable. The constructor creates a layout manager that will lay out components along the given axis. Unlike other layout managers, `BoxLayout` takes a container instance as the first parameter in the constructor. The second parameter determines the orientation of the manager: to create a horizontal box, the `LINE_AXIS` or `X_AXIS` constants can be used; to create a vertical box, the `PAGE_AXIS` or `Y_AXIS` constants can be used.
+
+The `BoxLayout` manager is often used with the `Box` class. This class creates several invisible components, which affect the final layout: glue, strut, rigid area. `Glue` creates an expandable area; `rigid area` always assume the specified size.
