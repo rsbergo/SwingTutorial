@@ -259,3 +259,5 @@ Create a 20px border around the bottom panel:
 ```
 bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
 ```
+
+`CardLayout` manager treats each component as a card. The container is a stack of these cards. Only one component is visible at a time, the rest is hidden. The first component added to the container is visible by default when the container is initially displayed. This layout manager can be used to create a wizard or a tabbed pane. Calling the `CardLayout`'s `previous()` or `next()` methods flips to the previous or next card of the specified container.
