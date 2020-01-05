@@ -238,3 +238,24 @@ The `FlowLayout` manager is the simplest layout manager in the Java Swing toolki
 Without setting the preferred size for the `JTextArea` component, the component would have a size of its text. Without the text, the component would not be visible at all. Writing or deleting some text in the component makes it grow and shrink accordingly.
 
 The `GridLayout` layout manager lays out components in a rectangular grid. The container is divided into equally sized rectangles. One component is placed in each rectangle, the components fill the area of each cell. One of the constructors of the `GridLayout` takes four parameters: the number of rows, the number of columns and the horizontal and vertical gaps between components.
+
+`BorderLayout` is the default layout manager for `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `JApplet`. It sets the gaps between its children in pixels, thus creating rigid layouts. This leads to non-portable UI.
+ 
+`BorderLayout` divides the space into five regions: north, west, south, east, and center. Each region can have only one component. To put more components into a region, a panel needs to be put there with its own manager. The components in N, W, S, E regions get their preferred size. The component in the center takes up the whole space left.
+
+It does not look good if child components are too close to each other, space should be added among them. Each component in Swing toolkit can have borders around its edges. To create a border, either create a new instance of an EmptyBorder class or use a BorderFactory.
+
+A top panel is placed into a bottom panel. The bottom panel has the `BorderLayout` manager. The top panel is placed into the center area of the bottom panel's `BorderLayout` manager.
+
+```
+var bottomPanel = new JPanel(new BorderLayout());
+var topPanel = new JPanel();
+...
+bottomPanel.add(topPanel);
+```
+
+Create a 20px border around the bottom panel:
+
+```
+bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
+```
