@@ -40,37 +40,52 @@ public class BoxLayoutButtonsEx extends JFrame
      */
     private void initUI()
     {
-        // Create the base panel with the vertical BoxLayout.
-        var basePanel = new JPanel();
-        basePanel.setLayout(new BoxLayout(basePanel, BoxLayout.Y_AXIS));
-        add(basePanel);
-        
-        basePanel.add(Box.createVerticalGlue());
-        
-        // The bottom panel is right aligned, done by the setAlignmentX() method. The panel has a horizontal layout.
-        var bottomPanel = new JPanel();
-        bottomPanel.setAlignmentX(1f);
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-        
-        var okBtn = new JButton("OK");
-        var closeBtn = new JButton("Close");
-        
-        bottomPanel.add(okBtn);
-        // Add some rigid space between the buttons.
-        bottomPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-        bottomPanel.add(closeBtn);
-        // Add some rigid space between the buttons.
-        bottomPanel.add(Box.createRigidArea(new Dimension(15, 0)));
-        
-        // Put the bottom panel with a horizontal box layout to the vertical base panel.
-        basePanel.add(bottomPanel);
-        // Add some space between the bottom panel and the border of the window.
-        basePanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        add(createBasePanel());
         
         setTitle("Two Buttons");
         setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Create the bottom panel with the horizontal BoxLayout.
+     * 
+     * The bottom panel is right aligned, done by the setAlignmentX() method. The panel has a horizontal layout. Add
+     * some rigid space between the buttons and.
+     */
+    private JPanel createBottomPanel()
+    {
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setAlignmentX(RIGHT_ALIGNMENT); // original: 1f. It seems that the alignment is from 0f to 1f.
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        
+        // Add components in the following order: [OK] [Rigid area] [Close] [Rigid area]
+        bottomPanel.add(new JButton("OK"));
+        bottomPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+        bottomPanel.add(new JButton("Close"));
+        bottomPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        
+        return bottomPanel;
+    }
+    
+    /**
+     * Create the base panel with the vertical BoxLayout.
+     */
+    private JPanel createBasePanel()
+    {
+        JPanel basePanel = new JPanel();
+        basePanel.setLayout(new BoxLayout(basePanel, BoxLayout.Y_AXIS));
+        
+        // Add components in the following order:
+        //     [Glue]
+        //     [Bottom Panel]
+        //     [Rigid area]
+        basePanel.add(Box.createVerticalGlue());
+        basePanel.add(createBottomPanel());
+        basePanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        
+        return basePanel;
     }
     
     // Driver
