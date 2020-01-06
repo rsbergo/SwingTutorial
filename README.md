@@ -7,7 +7,7 @@ The tutorial includes:
 - [x] Introduction
 - [x] First programs
 - [x] Menus and toolbars
-- [ ] Swing layout management
+- [x] Swing layout management
 - [ ] GroupLayout manager
 - [ ] Swing events
 - [ ] Basic Swing components
@@ -226,3 +226,44 @@ addMouseListener(new MouseAdapter()
 Toolbars provide a quick access to the most frequently used commands. In Java Swing, the JToolBar class creates a toolbar in an application.
 
 A toolbar is created with `JToolBar`. A button inserted into a toolbar is a regular `JButton`. The toolbar is placed to the north area of the `BorderLayout`. `BorderLayout` is the default layout manager for the content pane of a `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `Applet`.
+
+## Swing Layout Management
+
+Java Seing has two kind of components: containers and children. The containers group children into suitable layouts. *Layout managers* are used to create layouts. There are three layout managers that are more suitable in modern UI creation: `MigLayout`, `GroupLayout`, and `FormLayout`. These are powerful, flexible layout managers that can cope with most layout requirements. `FlowLayout`, `GridLayout`, `CardLayout`, `BoxLayout`, `GridBagLayout` are obsolete layout managers that cannot fulfill requirements of a modern UI.
+
+Obsolete layout managers are either too simple or unnecessarily complex. They use fixed gaps between components, which is not portable since the user interface becomes broken once the program is run on different screen resolutions. Obsolete layout managers try to fix their weaknesses by a technique called nesting: developers use several different layout managers in multiple panels. While feasible, it brings additional unnecessary complexity to the code.
+
+The `FlowLayout` manager is the simplest layout manager in the Java Swing toolkit. It is the default layout manager for the `JPanel` component. When calculating its children size, a `FlowLayout` lets each component assume its natural (preferred) size. The manager puts components into a row in the order they were added; if a component does not fit into a row, it goes into the next one. Components can be added from the right to the left or from the left to the right. The manager allows to align the components, but implicitly the components are centered and there is a 5px space between components and components and the edges of the container.
+
+Without setting the preferred size for the `JTextArea` component, the component would have a size of its text. Without the text, the component would not be visible at all. Writing or deleting some text in the component makes it grow and shrink accordingly.
+
+The `GridLayout` layout manager lays out components in a rectangular grid. The container is divided into equally sized rectangles. One component is placed in each rectangle, the components fill the area of each cell. One of the constructors of the `GridLayout` takes four parameters: the number of rows, the number of columns and the horizontal and vertical gaps between components.
+
+`BorderLayout` is the default layout manager for `JFrame`, `JWindow`, `JDialog`, `JInternalFrame`, and `JApplet`. It sets the gaps between its children in pixels, thus creating rigid layouts. This leads to non-portable UI.
+ 
+`BorderLayout` divides the space into five regions: north, west, south, east, and center. Each region can have only one component. To put more components into a region, a panel needs to be put there with its own manager. The components in N, W, S, E regions get their preferred size. The component in the center takes up the whole space left.
+
+It does not look good if child components are too close to each other, space should be added among them. Each component in Swing toolkit can have borders around its edges. To create a border, either create a new instance of an EmptyBorder class or use a BorderFactory.
+
+A top panel is placed into a bottom panel. The bottom panel has the `BorderLayout` manager. The top panel is placed into the center area of the bottom panel's `BorderLayout` manager.
+
+```
+var bottomPanel = new JPanel(new BorderLayout());
+var topPanel = new JPanel();
+...
+bottomPanel.add(topPanel);
+```
+
+Create a 20px border around the bottom panel:
+
+```
+bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
+```
+
+`CardLayout` manager treats each component as a card. The container is a stack of these cards. Only one component is visible at a time, the rest is hidden. The first component added to the container is visible by default when the container is initially displayed. This layout manager can be used to create a wizard or a tabbed pane. Calling the `CardLayout`'s `previous()` or `next()` methods flips to the previous or next card of the specified container.
+
+`BoxLayout` manager organizes components in a column or a row. It can create quite sophisticated layouts with nesting. However, this raises the complexity of the layout creation and uses additional resources, notably many other `JPanel` components. `BoxLayout` is only able to create fixed spaces; therefore, its layouts are not portable. The constructor creates a layout manager that will lay out components along the given axis. Unlike other layout managers, `BoxLayout` takes a container instance as the first parameter in the constructor. The second parameter determines the orientation of the manager: to create a horizontal box, the `LINE_AXIS` or `X_AXIS` constants can be used; to create a vertical box, the `PAGE_AXIS` or `Y_AXIS` constants can be used.
+
+The `BoxLayout` manager is often used with the `Box` class. This class creates several invisible components, which affect the final layout: glue, strut, rigid area. `Glue` creates an expandable area; `rigid area` always assume the specified size.
+
+It is possible to go without a layout manager. There might be a few situations where a layout manager is not needed (e.g. positioning some images at some irregular locations). But in most cases to create truly portable, complex applications, layout managers are needed. Without any manager, components are positioned using absolute values. To use absolute positioning, provide null to the `setLayout()` method. (The `JFrame` component has a default layout manager, the `BorderLayout`). The `setBounds()` method positions the component.
