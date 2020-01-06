@@ -24,6 +24,10 @@ import javax.swing.JTextPane;
  */
 public class TipOfDayEx extends JDialog
 {
+    // Data Fields
+    final int WIDTH = 450;
+    final int HEIGHT = 350;
+    
     /**
      * Constructor.
      */
@@ -43,62 +47,114 @@ public class TipOfDayEx extends JDialog
         basePanel.setLayout(new BoxLayout(basePanel, BoxLayout.Y_AXIS));
         add(basePanel);
         
-        // The top panel has a border layout manager. Three components are put into it: two labels and a separator. To
-        // have a panel that is not greater than its components, the maximum size must be set (the manager calculates
-        // the necessary heights.
-        var topPanel = new JPanel(new BorderLayout(0, 0));
-        topPanel.setMaximumSize(new Dimension(450, 0));
-        var hint = new JLabel("Productivity Hints");
-        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        topPanel.add(hint);
-        var icon = new ImageIcon("src/Resources/coffee2.png");
-        var label = new JLabel(icon);
-        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        topPanel.add(label, BorderLayout.EAST);
-        var separator = new JSeparator();
-        separator.setForeground(Color.gray);
-        topPanel.add(separator, BorderLayout.SOUTH);
-        basePanel.add(topPanel);
-        
-        // The text component is added to the center area of the border layout manager. It takes all space left.
-        var textPanel = new JPanel(new BorderLayout());
-        textPanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
-        var pane = new JTextPane();
-        pane.setContentType("text/html");
-        var text = "<p><b>Closing windows using the mouse wheel</b></p>"
-                + "<p>Clicking with the mouse wheel on an editor tab closes the window. "
-                + "This method works also with dockable windows or Log window tabs.</p>";
-        pane.setText(text);
-        pane.setEditable(false);
-        textPanel.add(pane);
-        basePanel.add(textPanel);
-        
-        // The check box is shown in the box panel. It ss left aligned. The flow layout manager has a 20px horizontal
-        // gap. Other components have 25px. This is because the flow layout manager puts some space between the
-        // component and the edge as well.
-        var boxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
-        var box = new JCheckBox("Show Tips at startup");
-        box.setMnemonic(KeyEvent.VK_S);
-        boxPanel.add(box);
-        basePanel.add(boxPanel);
-        
-        // The bottom panel displays two buttons. It has a right aligned flow manager. In order to show the buttons on
-        // the right edge of the dialog, the panel must stretch horizontally from the beginning to the end.
-        var bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        var tipBtn = new JButton("Next Tip");
-        tipBtn.setMnemonic(KeyEvent.VK_N);
-        var closeBtn = new JButton("Close");
-        closeBtn.setMnemonic(KeyEvent.VK_C);
-        bottomPanel.add(tipBtn);
-        bottomPanel.add(closeBtn);
-        basePanel.add(bottomPanel);
-        bottomPanel.setMaximumSize(new Dimension(450, 0));
+        basePanel.add(createTopPanel());
+        basePanel.add(createTextPanel());
+        basePanel.add(createBoxPanel());
+        basePanel.add(createBottomPanel());
         
         setTitle("Tip of the Day");
-        setSize(new Dimension(450, 350));
+        setSize(new Dimension(WIDTH, HEIGHT));
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Create the top panel.
+     * 
+     * The top panel has a border layout manager. Three components are put into it: two labels and a separator. To have
+     * a panel that is not greater than its components, the maximum size must be set (the manager calculates the
+     * necessary heights) -- but if this is the only component, the 0 is taken into account and the height is
+     * effectively 0, not showing anything.
+     */
+    private JPanel createTopPanel()
+    {
+        JPanel topPanel = new JPanel(new BorderLayout(0, 0));
+        topPanel.setMaximumSize(new Dimension(WIDTH, 0));
+        
+        // Add the "Productivity Hints" label.
+        JLabel hint = new JLabel("Productivity Hints");
+        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        topPanel.add(hint);
+        
+        // Add coffee icon.
+        ImageIcon icon = new ImageIcon("src/Resources/coffee2.png");
+        JLabel coffee = new JLabel(icon);
+        coffee.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        topPanel.add(coffee, BorderLayout.EAST);
+        
+        // Add separator.
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.gray);
+        topPanel.add(separator, BorderLayout.SOUTH);
+        
+        return topPanel;
+    }
+    
+    /**
+     * Create the text panel.
+     * 
+     * The text component is added to the center area of the border layout manager. It takes all space left.
+     */
+    private JPanel createTextPanel()
+    {
+        JPanel textPanel = new JPanel(new BorderLayout());
+        textPanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 25));
+        
+        // Add the text component.
+        JTextPane pane = new JTextPane();
+        pane.setContentType("text/html");
+        String text = "<p><b>Closing windows using the mouse wheel</b></p>" + 
+                      "<p>Clicking with the mouse wheel on an editor tab closes the window. " + 
+                      "This method works also with dockable windows or Log window tabs.</p>";
+        pane.setText(text);
+        pane.setEditable(false);
+        textPanel.add(pane);
+        
+        return textPanel;
+    }
+    
+    /**
+     * Create the box panel.
+     * 
+     * The check box is shown in the box panel. It is left aligned. The flow layout manager has a 20px horizontal gap.
+     * Other components have 25px. This is because the flow layout manager puts some space between the component and the
+     * edge as well.
+     */
+    private JPanel createBoxPanel()
+    {
+        JPanel boxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
+        
+        // Add check box.
+        JCheckBox box = new JCheckBox("Show Tips at startup");
+        box.setMnemonic(KeyEvent.VK_S);
+        boxPanel.add(box);
+        
+        return boxPanel;
+    }
+    
+    /**
+     * Create the bottom panel.
+     * 
+     * The bottom panel displays two buttons. It has a right aligned flow manager. In order to show the buttons on the
+     * right edge of the dialog, the panel must stretch horizontally from the beginning to the end.
+     */
+    private JPanel createBottomPanel()
+    {
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bottomPanel.setMaximumSize(new Dimension(WIDTH, 0));
+        
+        // Add "Next Tip" button.
+        JButton tipBtn = new JButton("Next Tip");
+        tipBtn.setMnemonic(KeyEvent.VK_N);
+        bottomPanel.add(tipBtn);
+        
+        // Add "Close" button.
+        JButton closeBtn = new JButton("Close");
+        closeBtn.setMnemonic(KeyEvent.VK_C);
+        bottomPanel.add(closeBtn);
+        
+        return bottomPanel;
     }
     
     // Driver
