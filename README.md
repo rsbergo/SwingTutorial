@@ -395,3 +395,5 @@ private class MyButton extends JButton implements ActionListener
     
 }
 ```
+
+A listener can be plugged into several sources.
