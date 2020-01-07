@@ -375,3 +375,23 @@ private class ButtonCloseListener implements ActionListener
     }
 }
 ```
+
+The `MyButton` class is extended from the `JButton` class. It implements the `ActionListener` interface. This way, the event handling is managed within the `MyButton` class.
+
+```
+private class MyButton extends JButton implements ActionListener
+{
+    public MyButton(String text)
+    {
+        super.setText(text);
+        addActionListener(this);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        System.exit(0);
+    }
+    
+}
+```
