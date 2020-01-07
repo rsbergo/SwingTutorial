@@ -8,7 +8,7 @@ The tutorial includes:
 - [x] First programs
 - [x] Menus and toolbars
 - [x] Swing layout management
-- [ ] GroupLayout manager
+- [x] GroupLayout manager
 - [ ] Swing events
 - [ ] Basic Swing components
 - [ ] Basic Swing components II
