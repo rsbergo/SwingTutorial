@@ -291,3 +291,9 @@ GroupLayout.ParallelGroup pg = gl.createParallelGroup(LEADING, false);
 ```
 
 Baseline alignment is aligning components along the baseline of the text the they contain. It works for components which renders a textual information (e.g. `JLabel`, `JButton`, etc). With `Alignment.BASELINE` alignment, the `GroupLayout` will align such components so that the baseline of their text stays on the same (horizontal) line (makes for an easier reading, the eye does not need to jump up/down on the virtual line of text).
+
+A stretchable gap can be added to a `sequentialGroup` with the `addPreferredGap()` method call. Its parameters are the type of the gap, the preferred and the minimum sizes of the gap. The difference between the maximum and the preferred values is the ability of the gap to stretch. When both values are the same, the gap has a fixed size.
+
+```
+gl.createSequentialGroup().addPreferredGap(RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+```
