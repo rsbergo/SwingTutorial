@@ -362,3 +362,16 @@ closeBtn.addActionListener(new ActionListener()
     }
 });
 ```
+
+An action listener can be defined as an inner class.
+
+```
+private class ButtonCloseListener implements ActionListener
+{
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        System.exit(0);
+    }
+}
+```
