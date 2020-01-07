@@ -346,3 +346,19 @@ public void actionPerformed(ActionEvent e)
 ```
 
 The `e.getWhen()` method returns time value in milliseconds.
+
+There are several ways event handler can be implemented in Java Swing: anonymous inner class, inner class, derived class.
+
+A button is the event source; it will generate events. An action listener is registered with the button. The events are sent to the event target. The event target in this case is `ActionListener` class; in this code, anonymous inner class is used.
+
+```
+var closeBtn = new JButton("Close");
+closeBtn.addActionListener(new ActionListener()
+{
+    @Override
+    public void actionPerformed(ActionEvent event)
+    {
+        System.exit(0);
+    }
+});
+```
