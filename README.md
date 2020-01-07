@@ -8,7 +8,7 @@ The tutorial includes:
 - [x] First programs
 - [x] Menus and toolbars
 - [x] Swing layout management
-- [ ] GroupLayout manager
+- [x] GroupLayout manager
 - [ ] Swing events
 - [ ] Basic Swing components
 - [ ] Basic Swing components II
@@ -267,3 +267,66 @@ bottomPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
 The `BoxLayout` manager is often used with the `Box` class. This class creates several invisible components, which affect the final layout: glue, strut, rigid area. `Glue` creates an expandable area; `rigid area` always assume the specified size.
 
 It is possible to go without a layout manager. There might be a few situations where a layout manager is not needed (e.g. positioning some images at some irregular locations). But in most cases to create truly portable, complex applications, layout managers are needed. Without any manager, components are positioned using absolute values. To use absolute positioning, provide null to the `setLayout()` method. (The `JFrame` component has a default layout manager, the `BorderLayout`). The `setBounds()` method positions the component.
+
+## `GroupLayout` manager
+
+This is the only built-in manager that can create multi-platform layouts. All other managers are either very simplistic or use fixed sized gaps that are not suitable for user interfaces on different platforms and screen resolutions. The third-party `MigLayout` can also be used to create multi-platform layouts in Java.
+ 
+`GroupLayout` separates components from the actual layout; all components can be set up in one place and the layout in another one. It defines the layout for each dimension independently. In one dimension, components are placed alongside the horizontal axis; in the other dimension, components are placed along the vertical axis. In both kinds of layouts, components can be arranged sequentially or in parallel. In a horizontal layout, a row of components is called a sequential group and a column of components is called a parallel group. In a vertical layout, a column of components is called a sequential group and a row of components is called a parallel group.
+
+`GroupLayout` uses three types of gaps between components or components and borders: `RELATED` (used for related components), `UNRELATED` (used for unrelated components), and `INDENTED` (used for indents between components). These gaps are resolution independent; i.e. they have different size in pixels on different resolution screens. Other built-in managers use fixes size gaps on all resolutions.
+
+A component is added to the layout manager with the `addComponent()` method. The parameters are the minimum, preferred, and maximum size values. Either specific absolute values can be passed, or the `GroupLayout.DEFAULT_SIZE` or the `GroupLayout.PREFERRED_SIZE` can be provided. The `GroupLayout.DEFAULT_SIZE` indicates that the corresponding size from the component should be used. The `GroupLayout.PREFERRED_SIZE` is determined by calling the component's `getPreferredSize()` method.
+
+Changing a component's maximum size to `GroupLayout.PREFERRED_SIZE` makes it non-expandable in the horizontal direction beyond its preferred size. The difference between the preferred size and the maximum size is the component's tendency to grow. This applies to managers that honor these values.
+
+```
+addComponent(field, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+```
+
+In the vertical layout, `createParallelGroupt()` can receive `false` for its second parameter. This way, the component is prevented from growing in the vertical direction.
+
+```
+GroupLayout.ParallelGroup pg = gl.createParallelGroup(LEADING, false);
+```
+
+Baseline alignment is aligning components along the baseline of the text the they contain. It works for components which renders a textual information (e.g. `JLabel`, `JButton`, etc). With `Alignment.BASELINE` alignment, the `GroupLayout` will align such components so that the baseline of their text stays on the same (horizontal) line (makes for an easier reading, the eye does not need to jump up/down on the virtual line of text).
+
+A stretchable gap can be added to a `sequentialGroup` with the `addPreferredGap()` method call. Its parameters are the type of the gap, the preferred and the minimum sizes of the gap. The difference between the maximum and the preferred values is the ability of the gap to stretch. When both values are the same, the gap has a fixed size.
+
+```
+gl.createSequentialGroup().addPreferredGap(RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+```
+
+To create a form with the labels aligned in the horizontal direction, and vertically aligned to their baseline with their corresponding text fields:
+
+- Horizontally, the layout consists of two parallel groups packed in a sequential group. Labels and fields are put separately into their parallel groups. The parallel group of labels has the `GroupLayout.Alignment.TRAILING` alignment, which makes the labels right aligned.
+
+```        
+gl.setHorizontalGroup(gl.createSequentialGroup()
+        .addGroup(gl.createParallelGroup(TRAILING)
+                .addComponent(serviceLbl)
+                .addComponent(userNameLbl)
+                .addComponent(passwordLbl))
+        .addGroup(gl.createParallelGroup()
+                .addComponent(field1)
+                .addComponent(field2)
+                .addComponent(field3))
+);
+```
+
+- In the vertical layout, the labels are aligned with their text fields to their baseline. To do this, the labels and their corresponding fields are grouped into parallel groups with the `GroupLayout.Alignment.BASELINE` alignment.
+
+```
+gl.setVerticalGroup(gl.createSequentialGroup()
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(serviceLbl)
+                .addComponent(field1))
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(userNameLbl)
+                .addComponent(field2))
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(passwordLbl)
+                .addComponent(field3))
+);
+```
