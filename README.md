@@ -297,3 +297,36 @@ A stretchable gap can be added to a `sequentialGroup` with the `addPreferredGap(
 ```
 gl.createSequentialGroup().addPreferredGap(RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 ```
+
+To create a form with the labels aligned in the horizontal direction, and vertically aligned to their baseline with their corresponding text fields:
+
+- Horizontally, the layout consists of two parallel groups packed in a sequential group. Labels and fields are put separately into their parallel groups. The parallel group of labels has the `GroupLayout.Alignment.TRAILING` alignment, which makes the labels right aligned.
+
+```        
+gl.setHorizontalGroup(gl.createSequentialGroup()
+        .addGroup(gl.createParallelGroup(TRAILING)
+                .addComponent(serviceLbl)
+                .addComponent(userNameLbl)
+                .addComponent(passwordLbl))
+        .addGroup(gl.createParallelGroup()
+                .addComponent(field1)
+                .addComponent(field2)
+                .addComponent(field3))
+);
+```
+
+- In the vertical layout, the labels are aligned with their text fields to their baseline. To do this, the labels and their corresponding fields are grouped into parallel groups with the `GroupLayout.Alignment.BASELINE` alignment.
+
+```
+gl.setVerticalGroup(gl.createSequentialGroup()
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(serviceLbl)
+                .addComponent(field1))
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(userNameLbl)
+                .addComponent(field2))
+        .addGroup(gl.createParallelGroup(BASELINE)
+                .addComponent(passwordLbl)
+                .addComponent(field3))
+);
+```
