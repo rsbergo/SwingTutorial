@@ -408,3 +408,22 @@ addBtn.addActionListener(new ButtonListener2());
 It is possible to remove the registered listeners with the `removeActionListener()` method. A non-anonymous listener must be created if it is to be removed later.
 
 To get the window position, the `ComponentListener` is used. The main class implements the `ComponentListener` interface.
+
+```
+addComponentListener(this);
+```
+
+An adapter is a convenient class that provides empty implementations for all required methods, so unnecessary coding can be avoided by using adapters and implementing only those methods that are actually needed. There is no adapter for a button click event because there there is only one method to implement: `actionPerformed()`. Adapters can be used in situations where more than one method has to be implemented.
+
+```
+addComponentListener(new MoveAdapter());
+
+private class MoveAdapter extends ComponentAdapter
+{
+    @Override
+    public void componentMoved(ComponentEvent e)
+    {
+        ...
+    }
+}
+```
