@@ -433,3 +433,5 @@ private class MoveAdapter extends ComponentAdapter
 Swing components are basic building blocks of an application. Swing has a wide range of various components, including buttons, check boxes, sliders, and list boxes.
 
 `JButton` is an implementation of a push button. It is used to trigger an action if the user clicks on it. `JButton` can display a text, an icon, or both. Many components can be decorated with icons, using the `ImageIcon` class.
+
+`JLabel` is a simple component for displaying text, images or both. It does not react to input events. HTML tags can be used in a `JLabel` component.
