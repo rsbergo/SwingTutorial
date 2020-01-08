@@ -437,3 +437,11 @@ Swing components are basic building blocks of an application. Swing has a wide r
 `JLabel` is a simple component for displaying text, images or both. It does not react to input events. HTML tags can be used in a `JLabel` component. `JLabel` can take an `ImageIcon` as a parameter. An icon is a fixed-sized image. `ImageIcon` paints an icon from a `GIF`, `JPEG`, or `PNG` image.
 
 `JTextField` is a text component that allows editing of a single line of non-formatted text. The number of columns received by the constructor does not set the number of characters allowed in the field; it is used to calculate the preferred width of the field. The `getDocument()` method fetches the model associated with the editor. Each Swing component has a model, which manages its state or data.
+
+`JPasswordField` is a `JTextField` subclass that does not show the characters that the user types. As a security precaution, a password field stores its value as an array of characters, rather than as a string. The array of characters is returned by the `getPassword()` method. Once the password has been processed, it is recommended to set the array's elements to zero.
+
+```
+var passwd = passField.getPassword();
+...
+Arrays.fill(passwd, '0');
+```
