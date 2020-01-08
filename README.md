@@ -397,3 +397,11 @@ private class MyButton extends JButton implements ActionListener
 ```
 
 A listener can be plugged into several sources.
+
+It is possible to register several listeners for one event:
+
+```
+JButton addBtn = new JButton("+");
+addBtn.addActionListener(new ButtonListener1());
+addBtn.addActionListener(new ButtonListener2());
+```
