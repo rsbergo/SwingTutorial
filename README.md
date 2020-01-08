@@ -405,3 +405,4 @@ JButton addBtn = new JButton("+");
 addBtn.addActionListener(new ButtonListener1());
 addBtn.addActionListener(new ButtonListener2());
 ```
+It is possible to remove the registered listeners with the `removeActionListener()` method. A non-anonymous listener must be created if it is to be removed later.
