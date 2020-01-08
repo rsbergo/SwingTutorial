@@ -435,3 +435,5 @@ Swing components are basic building blocks of an application. Swing has a wide r
 `JButton` is an implementation of a push button. It is used to trigger an action if the user clicks on it. `JButton` can display a text, an icon, or both. Many components can be decorated with icons, using the `ImageIcon` class.
 
 `JLabel` is a simple component for displaying text, images or both. It does not react to input events. HTML tags can be used in a `JLabel` component. `JLabel` can take an `ImageIcon` as a parameter. An icon is a fixed-sized image. `ImageIcon` paints an icon from a `GIF`, `JPEG`, or `PNG` image.
+
+`JTextField` is a text component that allows editing of a single line of non-formatted text. The number of columns received by the constructor does not set the number of characters allowed in the field; it is used to calculate the preferred width of the field. The `getDocument()` method fetches the model associated with the editor. Each Swing component has a model, which manages its state or data.
