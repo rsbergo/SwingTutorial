@@ -10,7 +10,7 @@ The tutorial includes:
 - [x] Swing layout management
 - [x] GroupLayout manager
 - [x] Swing events
-- [ ] Basic Swing components
+- [x] Basic Swing components
 - [ ] Basic Swing components II
 - [ ] Swing dialogs
 - [ ] Swing models
