@@ -467,3 +467,5 @@ A progress bar is a components that is used when we process lengthy tasks. It is
 `JTabbedPane` is a component that lets a user switch between a group of components by clicking on a tab. Create a new tab with the `addTab()` method. The first parameter is the title displayed by the tab. The second parameter is a component to be displayed when the tab is clicked.
 
 A `JTextArea` is a multiline text area that displays plain text. It is lightweight component for working with text. The component does not handle scrolling. For this task, use a `JScrollPane` component. The `setLineWrap()` method makes the lines wrapped if they are too long to fit the text area's width. The `setWrapStyleWord()` method specifies how line is going to be wrapped.
+
+`JTextPane` component is a more advanced component for working with text. The component can do some complex formatting operations over the text. It can also display HTML documents. The component does not handle scrolling.
