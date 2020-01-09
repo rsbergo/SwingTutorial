@@ -463,3 +463,5 @@ A progress bar is a components that is used when we process lengthy tasks. It is
 `JToggleButton` is a button that has two states: pressed and not pressed. Clicking on it toggles between these two states.
 
 `JList` is a component that displays a list of objects. It allows the user to select one or more items. Events in list selection are grouped. Events for both selecting and deselecting of items are received. To filter only the selecting events, use the `getValueIsAdjusting()` method. `JList` can have more items than it is physically possible to show on the window; it is not scrollable by default but it can be put into a `JScrollPane` to make it scrollable.
+
+`JTabbedPane` is a component that lets a user switch between a group of components by clicking on a tab. Create a new tab with the `addTab()` method. The first parameter is the title displayed by the tab. The second parameter is a component to be displayed when the tab is clicked.
