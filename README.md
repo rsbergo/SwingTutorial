@@ -459,3 +459,5 @@ The `ItemEvent`'s `getStateChange()` method determines the state of the componen
 `JComboBox` is a component that combines a button or editable field and a drop-down list. The user can select a value from the drop-down list, which appears at the user's request. If the combo box is editable, then the combo box includes an editable field into which the user can type a value. The combo box uses its `ItemListener` to detect changes. The `itemStateChanged()` is invoked when an item has been selected or deselected by the user.
 
 A progress bar is a components that is used when we process lengthy tasks. It is animated so that the user knows that the task is progressing. The `JProgressBar` component provides a horizontal or a vertical progress bar. The initial and minimum value are 0 and the maximum is 100.
+
+`JToggleButton` is a button that has two states: pressed and not pressed. Clicking on it toggles between these two states.
