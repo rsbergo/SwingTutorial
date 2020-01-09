@@ -11,7 +11,7 @@ The tutorial includes:
 - [x] GroupLayout manager
 - [x] Swing events
 - [x] Basic Swing components
-- [ ] Basic Swing components II
+- [x] Basic Swing components II
 - [ ] Swing dialogs
 - [ ] Swing models
 - [ ] Drag and drop
@@ -445,3 +445,27 @@ var passwd = passField.getPassword();
 ...
 Arrays.fill(passwd, '0');
 ```
+
+## Basic Swing Components II
+
+`JCheckBox` is a box with a label that has two states: on and off. If the check box is selected, it is represented by a tick in a box. With `JCkecBox`, it is possible to use an `ActionListener` or an `ItemListener` (usually the `ItemListener` is used). `ItemListener` is the interface for receiving item events. The class that is interested in processing an item event, e.g. the observer, implements this interface. The observer object is registered with a component using the component's `addItemListener()` method. When an item selection event occurs, the observer's `itemStateChange()` method is invoked.
+
+The `ItemEvent`'s `getStateChange()` method determines the state of the component. `ItemEvent` is a semantic event which indicates that an item was selected or deselected. It is sent to the registered observer.
+
+`JRadioButton` allows the user to select a single exclusive choice from a group of options. It is used with the `ButtonGroup` component. When a radio button is selected, two events are actually triggered: one for selection and one for deselection.
+
+`JSlider` is a component that lets the user graphically select a value by sliding a knob within a bounded interval. Moving the slider's knob, the `stateChanged()` method of the slider's `ChangeListener` is called. A `ChangeEvent` is triggered when the slider has changed in some way. `JSlider` can optionally show tick marks for the range of its values. The tick marks are controlled with the `setMinerTickSpacing()`, `setMajorTickSpacing()`, and `setPaintTicks()` methods.
+
+`JComboBox` is a component that combines a button or editable field and a drop-down list. The user can select a value from the drop-down list, which appears at the user's request. If the combo box is editable, then the combo box includes an editable field into which the user can type a value. The combo box uses its `ItemListener` to detect changes. The `itemStateChanged()` is invoked when an item has been selected or deselected by the user.
+
+A progress bar is a components that is used when we process lengthy tasks. It is animated so that the user knows that the task is progressing. The `JProgressBar` component provides a horizontal or a vertical progress bar. The initial and minimum value are 0 and the maximum is 100.
+
+`JToggleButton` is a button that has two states: pressed and not pressed. Clicking on it toggles between these two states.
+
+`JList` is a component that displays a list of objects. It allows the user to select one or more items. Events in list selection are grouped. Events for both selecting and deselecting of items are received. To filter only the selecting events, use the `getValueIsAdjusting()` method. `JList` can have more items than it is physically possible to show on the window; it is not scrollable by default but it can be put into a `JScrollPane` to make it scrollable.
+
+`JTabbedPane` is a component that lets a user switch between a group of components by clicking on a tab. Create a new tab with the `addTab()` method. The first parameter is the title displayed by the tab. The second parameter is a component to be displayed when the tab is clicked.
+
+A `JTextArea` is a multiline text area that displays plain text. It is lightweight component for working with text. The component does not handle scrolling. For this task, use a `JScrollPane` component. The `setLineWrap()` method makes the lines wrapped if they are too long to fit the text area's width. The `setWrapStyleWord()` method specifies how line is going to be wrapped.
+
+`JTextPane` component is a more advanced component for working with text. The component can do some complex formatting operations over the text. It can also display HTML documents. The component does not handle scrolling.
