@@ -11,7 +11,7 @@ The tutorial includes:
 - [x] GroupLayout manager
 - [x] Swing events
 - [x] Basic Swing components
-- [ ] Basic Swing components II
+- [x] Basic Swing components II
 - [ ] Swing dialogs
 - [ ] Swing models
 - [ ] Drag and drop
