@@ -453,3 +453,5 @@ Arrays.fill(passwd, '0');
 The `ItemEvent`'s `getStateChange()` method determines the state of the component. `ItemEvent` is a semantic event which indicates that an item was selected or deselected. It is sent to the registered observer.
 
 `JRadioButton` allows the user to select a single exclusive choice from a group of options. It is used with the `ButtonGroup` component. When a radio button is selected, two events are actually triggered: one for selection and one for deselection.
+
+`JSlider` is a component that lets the user graphically select a value by sliding a knob within a bounded interval. Moving the slider's knob, the `stateChanged()` method of the slider's `ChangeListener` is called. A `ChangeEvent` is triggered when the slider has changed in some way. `JSlider` can optionally show tick marks for the range of its values. The tick marks are controlled with the `setMinerTickSpacing()`, `setMajorTickSpacing()`, and `setPaintTicks()` methods.
