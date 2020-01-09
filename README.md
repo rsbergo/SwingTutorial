@@ -469,3 +469,14 @@ A progress bar is a components that is used when we process lengthy tasks. It is
 A `JTextArea` is a multiline text area that displays plain text. It is lightweight component for working with text. The component does not handle scrolling. For this task, use a `JScrollPane` component. The `setLineWrap()` method makes the lines wrapped if they are too long to fit the text area's width. The `setWrapStyleWord()` method specifies how line is going to be wrapped.
 
 `JTextPane` component is a more advanced component for working with text. The component can do some complex formatting operations over the text. It can also display HTML documents. The component does not handle scrolling.
+
+
+## Swing Dialogs
+
+A dialog is defined as a conversation between two or more persons. In a computer application, a dialog is a window which is used to "talk" to the application. A dialog is used to input data, modify data, change the application settings, etc. Dialogs are important means of communication between a user and a computer program.
+
+In Java Swing, two kinds of dialog can be created: standard dialogs and custom dialogs. *Custom dialogs* are created by programmers based on the `JDialog`. *Standard dialogs* are predefined dialogs available in the Swing toolkit (`JColorChooser`, `JFileChooser`, etc.) for common programming tasks like showing text, receiving input, loading and saving files, etc.
+
+There are two basic types of dialogs: modal and modeless. *Modal* dialogs block input to other top-level windows (e.g. open file dialog). *Modeless* dialogs allow input to other windows (e.g. find text dialog).
+
+Message dialogs are simple dialogs that provide information to the user. Message dialogs are created with the `JOptionPane.showMessageDialog()` method, providing the dialog's parent, message text, title and message type (`ERROR_MESSAGE`, `WARNING_MESSAGE`, `QUESTION_MESSAGE`, `INFORMATION_MESSAGE`). The displayed icon depends on the message type.
