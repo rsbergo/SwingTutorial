@@ -451,3 +451,5 @@ Arrays.fill(passwd, '0');
 `JCheckBox` is a box with a label that has two states: on and off. If the check box is selected, it is represented by a tick in a box. With `JCkecBox`, it is possible to use an `ActionListener` or an `ItemListener` (usually the `ItemListener` is used). `ItemListener` is the interface for receiving item events. The class that is interested in processing an item event, e.g. the observer, implements this interface. The observer object is registered with a component using the component's `addItemListener()` method. When an item selection event occurs, the observer's `itemStateChange()` method is invoked.
 
 The `ItemEvent`'s `getStateChange()` method determines the state of the component. `ItemEvent` is a semantic event which indicates that an item was selected or deselected. It is sent to the registered observer.
+
+`JRadioButton` allows the user to select a single exclusive choice from a group of options. It is used with the `ButtonGroup` component. When a radio button is selected, two events are actually triggered: one for selection and one for deselection.
