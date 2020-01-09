@@ -480,3 +480,27 @@ In Java Swing, two kinds of dialog can be created: standard dialogs and custom d
 There are two basic types of dialogs: modal and modeless. *Modal* dialogs block input to other top-level windows (e.g. open file dialog). *Modeless* dialogs allow input to other windows (e.g. find text dialog).
 
 Message dialogs are simple dialogs that provide information to the user. Message dialogs are created with the `JOptionPane.showMessageDialog()` method, providing the dialog's parent, message text, title and message type (`ERROR_MESSAGE`, `WARNING_MESSAGE`, `QUESTION_MESSAGE`, `INFORMATION_MESSAGE`). The displayed icon depends on the message type.
+
+The custom dialog is based on the `JDialog` class. The `setModalityType()` method set the modality type of the dialog. The `ModalityType.APPLICATION_MODAL` blocks input from all top-level windows of the same application.
+
+The `setDefaultCloseOperation()` sets what happens when the user clicks on the windoe's `Close` button. The dialog will be hidden and disposed.
+
+```
+setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+```
+
+The `setLocationRelativeTo()` method centers the dialog window over the area of the frame window.
+
+```
+setLocationRelativeTo(getParent());
+```
+
+The dialog window is shown on the screen with the `setVisible()` method.
+
+```
+private void showAboutDialog()
+{
+    var aboutDialog = new AboutDialog(this);
+    aboutDialog.setVisible(true);
+}
+```
