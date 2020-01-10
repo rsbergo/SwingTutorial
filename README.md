@@ -508,3 +508,47 @@ private void showAboutDialog()
 `JFileChooser` is a standard dialog for selecting a file from the file system. The `showDialog()` method displays the dialog on the screen. The `JFileChooser.APPROVE_OPTION` is returned when the `Yes` or `OK` buttons are clicked.
 
 `JColorChooser` is a standard dialog for selecting a color. The `showDialog()` method returns the selected color value.
+
+## Swing Models
+
+The traditional Model View Controller (MVC) design pattern divides an application into three parts:
+
+- A *model*: represents the data in the application.
+- A *view*: the  visual representation of the data.
+- A *controller*: processes and responds to events (user actions) and may invoke changes on the model.
+
+The idea is to separate the data access and business logic from data presentation and user interaction by introducing an intermediate component: the controller.
+
+Swing toolkit implements a modified MVC pattern that enabled efficient handling of data and using plugglable look and feel at runtime. It has a single *UI object* for both the view and the controller. This is also called a *separable model architecture*.
+
+Every Swing component has its model. There are two types of models in Swing toolkit:
+
+- State models: handle the state of the component (e.g. the model keeps track whether the component is selected or pressed).
+- Data models: handle the data (e.g. a list component keeps a list of items that it is displaying).
+
+Swing components often need to get a model instance in order to manipulate the data in the component. However, for convenience, some methods return data without the need for a programmer to access the model; it would be an overkill to work with models directly in simple situations, so Swing provides some convenience methods. For example, the access to the JSlider model is done behind the scenes in the `getValue()` method:
+
+```
+public int getValue()
+{ 
+    return getModel().getValue(); 
+}
+```
+
+To query the state of the model, there are two types of notifications:
+
+- Lightweight notifications: uses a `ChangeListener` class. There is only one single event (`ChangeEvent`) for all notifications coming from the component.
+- Stateful notification: used for more complex components, there are different kinds of events (for example, the JList component has the `ListDataEvent` and the `ListSelectionEvent`).
+
+If a model is not set for a component, a default one is created. For example, the `JButton` component has a `DefaultButtonModel` model that is created at the construction of the component:
+
+```
+public JButton(String text, Icon icon)
+{
+    // Create the model
+    setModel(new DefaultButtonModel());
+    
+    // initialize
+    init(text, icon);
+}
+```
