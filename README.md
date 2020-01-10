@@ -560,3 +560,5 @@ var model = (DefaultButtonModel) okBtn.getModel();
 
 if (model.isEnabled())
 ```
+
+Several components have two models; `JList` is one of them. It has the `ListModel`, which handles data, and the `ListSelectionModel`, which works with the selection state of the list. The `add()`, `remove()`, and `clear()` methods of the list data model can be used to work with the data. A list selection model can be used in order to find out the selected item.
