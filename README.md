@@ -504,3 +504,5 @@ private void showAboutDialog()
     aboutDialog.setVisible(true);
 }
 ```
+
+`JFileChooser` is a standard dialog for selecting a file from the file system. The `showDialog()` method displays the dialog on the screen. The `JFileChooser.APPROVE_OPTION` is returned when the `Yes` or `OK` buttons are clicked.
