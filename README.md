@@ -12,7 +12,7 @@ The tutorial includes:
 - [x] Swing events
 - [x] Basic Swing components
 - [x] Basic Swing components II
-- [ ] Swing dialogs
+- [x] Swing dialogs
 - [ ] Swing models
 - [ ] Drag and drop
 - [ ] Painting
