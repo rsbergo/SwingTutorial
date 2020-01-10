@@ -552,3 +552,11 @@ public JButton(String text, Icon icon)
     init(text, icon);
 }
 ```
+
+The model is used for various kinds of buttons, like push buttons, check boxes, radio boxes and for menu items. A ChangeListener is used to listen for buttons state changes. Get the default button model and query the model whether the button is enabled. The label is updated accordingly:
+
+```
+var model = (DefaultButtonModel) okBtn.getModel();
+
+if (model.isEnabled())
+```
