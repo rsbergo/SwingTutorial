@@ -562,3 +562,5 @@ if (model.isEnabled())
 ```
 
 Several components have two models; `JList` is one of them. It has the `ListModel`, which handles data, and the `ListSelectionModel`, which works with the selection state of the list. The `add()`, `remove()`, and `clear()` methods of the list data model can be used to work with the data. A list selection model can be used in order to find out the selected item.
+
+A document model is a good example of a separation of a data from the visual representation. In a `JTextPane` component, a `StyleDocument` is used for setting the style of the text data.
