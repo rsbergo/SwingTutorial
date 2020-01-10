@@ -506,3 +506,5 @@ private void showAboutDialog()
 ```
 
 `JFileChooser` is a standard dialog for selecting a file from the file system. The `showDialog()` method displays the dialog on the screen. The `JFileChooser.APPROVE_OPTION` is returned when the `Yes` or `OK` buttons are clicked.
+
+`JColorChooser` is a standard dialog for selecting a color. The `showDialog()` method returns the selected color value.
