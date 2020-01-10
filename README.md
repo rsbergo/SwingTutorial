@@ -12,7 +12,7 @@ The tutorial includes:
 - [x] Swing events
 - [x] Basic Swing components
 - [x] Basic Swing components II
-- [ ] Swing dialogs
+- [x] Swing dialogs
 - [ ] Swing models
 - [ ] Drag and drop
 - [ ] Painting
@@ -469,3 +469,42 @@ A progress bar is a components that is used when we process lengthy tasks. It is
 A `JTextArea` is a multiline text area that displays plain text. It is lightweight component for working with text. The component does not handle scrolling. For this task, use a `JScrollPane` component. The `setLineWrap()` method makes the lines wrapped if they are too long to fit the text area's width. The `setWrapStyleWord()` method specifies how line is going to be wrapped.
 
 `JTextPane` component is a more advanced component for working with text. The component can do some complex formatting operations over the text. It can also display HTML documents. The component does not handle scrolling.
+
+
+## Swing Dialogs
+
+A dialog is defined as a conversation between two or more persons. In a computer application, a dialog is a window which is used to "talk" to the application. A dialog is used to input data, modify data, change the application settings, etc. Dialogs are important means of communication between a user and a computer program.
+
+In Java Swing, two kinds of dialog can be created: standard dialogs and custom dialogs. *Custom dialogs* are created by programmers based on the `JDialog`. *Standard dialogs* are predefined dialogs available in the Swing toolkit (`JColorChooser`, `JFileChooser`, etc.) for common programming tasks like showing text, receiving input, loading and saving files, etc.
+
+There are two basic types of dialogs: modal and modeless. *Modal* dialogs block input to other top-level windows (e.g. open file dialog). *Modeless* dialogs allow input to other windows (e.g. find text dialog).
+
+Message dialogs are simple dialogs that provide information to the user. Message dialogs are created with the `JOptionPane.showMessageDialog()` method, providing the dialog's parent, message text, title and message type (`ERROR_MESSAGE`, `WARNING_MESSAGE`, `QUESTION_MESSAGE`, `INFORMATION_MESSAGE`). The displayed icon depends on the message type.
+
+The custom dialog is based on the `JDialog` class. The `setModalityType()` method set the modality type of the dialog. The `ModalityType.APPLICATION_MODAL` blocks input from all top-level windows of the same application.
+
+The `setDefaultCloseOperation()` sets what happens when the user clicks on the windoe's `Close` button. The dialog will be hidden and disposed.
+
+```
+setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+```
+
+The `setLocationRelativeTo()` method centers the dialog window over the area of the frame window.
+
+```
+setLocationRelativeTo(getParent());
+```
+
+The dialog window is shown on the screen with the `setVisible()` method.
+
+```
+private void showAboutDialog()
+{
+    var aboutDialog = new AboutDialog(this);
+    aboutDialog.setVisible(true);
+}
+```
+
+`JFileChooser` is a standard dialog for selecting a file from the file system. The `showDialog()` method displays the dialog on the screen. The `JFileChooser.APPROVE_OPTION` is returned when the `Yes` or `OK` buttons are clicked.
+
+`JColorChooser` is a standard dialog for selecting a color. The `showDialog()` method returns the selected color value.
