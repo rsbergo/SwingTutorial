@@ -640,3 +640,9 @@ The `importData()` method transfers the data from the clipboard or from the drag
 ```
 var transferable = support.getTransferable();
 ```
+
+Several classes are needed to create a drag gesture: `DragSource`, `DragGestureEvent`, `DragGestureListener`, `Transferable`. The drag gesture is created when a component is clicked and the mouse pointer is moved while the button is pressed. `DragGestureListener` interface listens for drag gestures; `Transferable` interface handles data for a transfer operation.
+
+Create a `DragSource` object and register it for a `JPane`. The `DragSource` is the entity responsible for the initiation of the drag-and-drop operation. The `createDefaultDragGestureRecognizer()` associates a drag source and the `DragGestureListener` with a particular component.
+
+The `dragGestureRecognized()` method responds to a drag gesture. The `startDrag()` method of the `DragGestureEvent` finally starts the drag operation. Two parameters are specified: the cursor type and the `Transferable` object.
