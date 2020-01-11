@@ -762,3 +762,5 @@ g2d.setPaint(slateTp);
 g2d.setColor(new Color(125, 167, 116));
 g2d.fillRect(10, 15, 90, 60);
 ```
+
+In computer graphics, gradient is a smooth blending of shades from light to dark or from one color to another. In 2D drawing programs and paint programs, gradients are used to create colorful backgrounds and special effects, as well as to simulate lights and shadows. To work with gradients, use Java Swing's `GradientPaint` class. By manipulating the color values and the starting and ending points, different types of gradients can be obtained. The gradient is activated calling the `setPaint()` method.
