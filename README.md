@@ -722,4 +722,43 @@ int h = size.height - insets.top - insets.bottom;
 
 A line is a simple graphics primitive. It is drawn using two points. The stroke is created using the `BasicStroke` class. It defines a basic set of rendering attributes for the outlines of graphics primitives: line width, end caps, line joins, miter limit, dash, and the dash phase.
 
-To draw rectangles, use the drawRect() method. To fill rectangles with the current color, use the fillRect() method.
+To draw rectangles, use the `drawRect()` method. To fill rectangles with the current color, use the `fillRect()` method.
+
+A texture is a bitmap image applied to a shape. To work with textures in Java 2D, use the `TexturePaing` class.
+
+`BufferedImage` is a rectangle of pixels stored in memory. It is one of the most important image types in Swing. Many Swing methods return a `BufferedImage` to work with.
+
+Read the image into the buffered image using `ImageIO.read()` method. It takes a `File` object and returns a `BufferedImage`:
+
+```
+slate = ImageIO.read(new File("src/Resources/painting/slate.png"));
+```
+
+Create a `TexturePaint` class out of the buffered image:
+
+```
+var slateTp = new TexturePaint(slate, new Rectangle(0, 0, 90, 60));
+```
+
+Fill the rectangle with the texture:
+
+```
+g2d.setPaint(slateTp);
+g2d.fillRect(10, 15, 90, 60);
+```
+
+Fill the rectangle with the texture:
+
+```
+g2d.setColor(new Color(125, 167, 116));
+g2d.setPaint(slateTp);
+g2d.fillRect(10, 15, 90, 60);
+```
+
+Fill the rectangle with a solid color:
+
+```
+g2d.setPaint(slateTp);
+g2d.setColor(new Color(125, 167, 116));
+g2d.fillRect(10, 15, 90, 60);
+```
