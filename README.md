@@ -608,3 +608,35 @@ private class DragMouseAdapter extends MouseAdapter
     }
 }
 ```
+
+Some components, such as the `JList`, do not have a default drop support. There is a good reason for this: it is not known if the data will be inserted into one row, or two or more rows. The drop support for the list component must be implemented manually.
+
+The `DropMode.INSERT` specifies that new items are going to be inserted into the list component, i.e. new items are dropped onto the existing ones:
+
+```
+myList.setDropMode(DropMode.INSERT);
+```
+
+Set a custom transfer handler class:
+
+```
+myList.setTransferHandler(new ListHandler());
+```
+
+Tests the suitability of a drop operation. Filter out the clipboard past operations and allow only String drop operations. If the method returns false, the drop operation is cancelled.
+
+```
+public boolean canImport(TransferSupport support)
+{
+    if (!support.isDrop())
+        return false;
+            
+    return support.isDataFlavorSupported(DataFlavor.stringFlavor);
+}
+```
+
+The `importData()` method transfers the data from the clipboard or from the drag-and-drop operation to the drop location. The `Transferable` is the class where the data is bundled:
+
+```
+var transferable = support.getTransferable();
+```
