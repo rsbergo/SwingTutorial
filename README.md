@@ -686,3 +686,14 @@ public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorExcepti
         throw new UnsupportedFlavorException(flavor);
 }
 ```
+
+## Painting
+
+Swing's painting system is able to render vector graphics, images and outline font-based text. Painting is needed in applications when it is desirable to change or enhance an existing widget, or when creating a custom widget from scratch. To do the painting, the painting API provided by the Swing toolkit is used. The painting is done within the `paintConponent()` method. In the painting process, the `Graphics2D` object is used.
+
+There are two different computer graphics:
+
+- Vector: uses geometrical primitives (such as points, lines, polylines, polygons, circles, ellipses, Splines) to represent images. These primitives are created using mathematical equations.
+- Raster: represents images as a collection of pixels.
+
+The advantages of vector graphics over raster graphics include smaller size, ability to zoom indefinitely, and moving, scaling, filling or rotating does not degrade the quality of an image.
