@@ -721,3 +721,5 @@ int h = size.height - insets.top - insets.bottom;
 ```
 
 A line is a simple graphics primitive. It is drawn using two points. The stroke is created using the `BasicStroke` class. It defines a basic set of rendering attributes for the outlines of graphics primitives: line width, end caps, line joins, miter limit, dash, and the dash phase.
+
+To draw rectangles, use the drawRect() method. To fill rectangles with the current color, use the fillRect() method.
