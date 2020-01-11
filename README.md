@@ -564,3 +564,24 @@ if (model.isEnabled())
 Several components have two models; `JList` is one of them. It has the `ListModel`, which handles data, and the `ListSelectionModel`, which works with the selection state of the list. The `add()`, `remove()`, and `clear()` methods of the list data model can be used to work with the data. A list selection model can be used in order to find out the selected item.
 
 A document model is a good example of a separation of a data from the visual representation. In a `JTextPane` component, a `StyleDocument` is used for setting the style of the text data.
+
+
+## Drag and Drop
+
+In computer graphical user interfaces, drag-and-drop is the action of clicking on a virtual object and dragging it to a different location or onto another virtual object. It can be used to invoke many kinds of actions or create various types of associations between two abstract objects. It enables users to do complex things intuitively.
+
+Usually, two things can be dragged and dropped: data (e.g. an image) or a graphical object (e.g. a Firefox tab). The component where the drag operation begins must have a `DragSource` object registered; a `DropTarget` is an object responsible for accepting drops; a `Transferable` encapsulates data being transfered; a `DataFlavor` object provides information about the data being transferred.
+
+Several Swing components have already a built-in support for drag-and-drop operations. In such cases, a `TransferHandler` can be used to manage the drag-and-drop functionality. In situations where there is no built-in support, everything must be created from scratch.
+
+The JTextField has a built-in support for dragging that must be enabled:
+
+```
+field.setDragEnabled(true);
+```
+
+The `TransferHandler` is a class responsible for transferring data between components. The constructor takes a property name as a parameter:
+
+```
+button.setTransferHandler(new TransferHandler("text"));
+```
