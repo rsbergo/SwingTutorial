@@ -14,7 +14,7 @@ The tutorial includes:
 - [x] Basic Swing components II
 - [x] Swing dialogs
 - [x] Swing models
-- [ ] Drag and drop
+- [x] Drag and drop
 - [ ] Painting
 - [ ] Resizable component
 - [ ] Puzzle
@@ -564,3 +564,125 @@ if (model.isEnabled())
 Several components have two models; `JList` is one of them. It has the `ListModel`, which handles data, and the `ListSelectionModel`, which works with the selection state of the list. The `add()`, `remove()`, and `clear()` methods of the list data model can be used to work with the data. A list selection model can be used in order to find out the selected item.
 
 A document model is a good example of a separation of a data from the visual representation. In a `JTextPane` component, a `StyleDocument` is used for setting the style of the text data.
+
+
+## Drag and Drop
+
+In computer graphical user interfaces, drag-and-drop is the action of clicking on a virtual object and dragging it to a different location or onto another virtual object. It can be used to invoke many kinds of actions or create various types of associations between two abstract objects. It enables users to do complex things intuitively.
+
+Usually, two things can be dragged and dropped: data (e.g. an image) or a graphical object (e.g. a Firefox tab). The component where the drag operation begins must have a `DragSource` object registered; a `DropTarget` is an object responsible for accepting drops; a `Transferable` encapsulates data being transfered; a `DataFlavor` object provides information about the data being transferred.
+
+Several Swing components have already a built-in support for drag-and-drop operations. In such cases, a `TransferHandler` can be used to manage the drag-and-drop functionality. In situations where there is no built-in support, everything must be created from scratch.
+
+The JTextField has a built-in support for dragging that must be enabled:
+
+```
+field.setDragEnabled(true);
+```
+
+The `TransferHandler` is a class responsible for transferring data between components. The constructor takes a property name as a parameter:
+
+```
+button.setTransferHandler(new TransferHandler("text"));
+```
+
+Some Java Swing components, such as `JLabel`, do not have built-in drag support. This functionality must be coded. The drag support is not enabled by default for the label; this can be done by registering a custom mouse adapter.
+
+```
+var listener = new DragMouseAdapter();
+label1.addMouseListener(listener);
+```
+
+The `TransferHandler` is needed for both drag sources and drag targets.
+
+To initiate the drag support, get the drag source, get its `TransferHandler` object, and initiate the drag support with the `exportAsDrag()` method call.
+
+```
+private class DragMouseAdapter extends MouseAdapter
+{
+    public void mousePressed(MouseEvent e)
+    {
+        var c = (JComponent) e.getSource();
+        var handler = c.getTransferHandler();
+        handler.exportAsDrag(c, e, TransferHandler.COPY);
+    }
+}
+```
+
+Some components, such as the `JList`, do not have a default drop support. There is a good reason for this: it is not known if the data will be inserted into one row, or two or more rows. The drop support for the list component must be implemented manually.
+
+The `DropMode.INSERT` specifies that new items are going to be inserted into the list component, i.e. new items are dropped onto the existing ones:
+
+```
+myList.setDropMode(DropMode.INSERT);
+```
+
+Set a custom transfer handler class:
+
+```
+myList.setTransferHandler(new ListHandler());
+```
+
+Tests the suitability of a drop operation. Filter out the clipboard past operations and allow only String drop operations. If the method returns false, the drop operation is cancelled.
+
+```
+public boolean canImport(TransferSupport support)
+{
+    if (!support.isDrop())
+        return false;
+            
+    return support.isDataFlavorSupported(DataFlavor.stringFlavor);
+}
+```
+
+The `importData()` method transfers the data from the clipboard or from the drag-and-drop operation to the drop location. The `Transferable` is the class where the data is bundled:
+
+```
+var transferable = support.getTransferable();
+```
+
+Several classes are needed to create a drag gesture: `DragSource`, `DragGestureEvent`, `DragGestureListener`, `Transferable`. The drag gesture is created when a component is clicked and the mouse pointer is moved while the button is pressed. `DragGestureListener` interface listens for drag gestures; `Transferable` interface handles data for a transfer operation.
+
+Create a `DragSource` object and register it for a `JPane`. The `DragSource` is the entity responsible for the initiation of the drag-and-drop operation. The `createDefaultDragGestureRecognizer()` associates a drag source and the `DragGestureListener` with a particular component.
+
+The `dragGestureRecognized()` method responds to a drag gesture. The `startDrag()` method of the `DragGestureEvent` finally starts the drag operation. Two parameters are specified: the cursor type and the `Transferable` object.
+
+Register a drop target listener:
+
+```
+var mtl = new MyDropTargetListener(rightPanel);
+```
+
+If the conditions for a drag-and-drop operation are fulfilled, accept the drop with the specified action. Otherwise, reject it:
+
+```
+event.acceptDrop(DnDConstants.ACTION_COPY);
+...
+event.rejectDrop();
+```
+
+Create a new `DataFlavor` object:
+
+```
+protected static final DataFlavor colorFlavor = new DataFlavor(Color.class, "A Color Object");
+```
+
+Specify what data flavors are supported (a custom defined color flavor and a predefined `DataFlavor.stringFlavor`):
+
+```
+protected static final DataFlavor[] supportedFlavors = { colorFlavor, DataFlavor.stringFlavor };
+```
+
+Return an object for a specific data flavor:
+
+```
+public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
+{
+    if (flavor.equals(colorFlavor))
+        return color;
+    else if (flavor.equals(DataFlavor.stringFlavor))
+        return color.toString();
+    else 
+        throw new UnsupportedFlavorException(flavor);
+}
+```
