@@ -14,7 +14,7 @@ The tutorial includes:
 - [x] Basic Swing components II
 - [x] Swing dialogs
 - [x] Swing models
-- [ ] Drag and drop
+- [x] Drag and drop
 - [ ] Painting
 - [ ] Resizable component
 - [ ] Puzzle
