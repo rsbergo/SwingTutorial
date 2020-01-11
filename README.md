@@ -585,3 +585,26 @@ The `TransferHandler` is a class responsible for transferring data between compo
 ```
 button.setTransferHandler(new TransferHandler("text"));
 ```
+
+Some Java Swing components, such as `JLabel`, do not have built-in drag support. This functionality must be coded. The drag support is not enabled by default for the label; this can be done by registering a custom mouse adapter.
+
+```
+var listener = new DragMouseAdapter();
+label1.addMouseListener(listener);
+```
+
+The `TransferHandler` is needed for both drag sources and drag targets.
+
+To initiate the drag support, get the drag source, get its `TransferHandler` object, and initiate the drag support with the `exportAsDrag()` method call.
+
+```
+private class DragMouseAdapter extends MouseAdapter
+{
+    public void mousePressed(MouseEvent e)
+    {
+        var c = (JComponent) e.getSource();
+        var handler = c.getTransferHandler();
+        handler.exportAsDrag(c, e, TransferHandler.COPY);
+    }
+}
+```
