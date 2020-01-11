@@ -697,3 +697,25 @@ There are two different computer graphics:
 - Raster: represents images as a collection of pixels.
 
 The advantages of vector graphics over raster graphics include smaller size, ability to zoom indefinitely, and moving, scaling, filling or rotating does not degrade the quality of an image.
+
+The most simple graphics primitive is point: it is a single dot on the window. There is no method to draw a point in Swing, instead the `drawLine()` method is used receiving the same point twice. Custom painting is performed inside the `paintContainer()` method. The `super.paingComponent()` method calls the method of the parent class, which does some necessary work to prepare the component for drawing.
+
+Painting in Swing is done on the `Graphics2D` object.
+
+```
+private void doDrawing(Graphics g)
+{
+    var g2d = (Graphics2D) g;
+    ...
+}
+```
+
+The size of the window includes borders and titlebar. Painting is not done there. Calculate the area where the points will be effectively painted:
+ 
+```
+var size = getSize();
+var insets = getInsets();
+
+int w = size.width - insets.left - insets.right;
+int h = size.height - insets.top - insets.bottom;
+```
