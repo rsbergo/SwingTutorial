@@ -768,3 +768,7 @@ In computer graphics, gradient is a smooth blending of shades from light to dark
 Drawing text is done with the `drawString()` method. The string that is to be drawn and the position of the text on the window area are specified.
 
 An image is an array of pixels, each pixel representing a color at a given position. Components, such as `JLabel`, can be used to display an image, or the image can be drawn using the Java 2D API. Using the `ImageIcon` class simplifies the work with the images in Java Swing. The image is drawn on the component using the `drawImage()` method.
+
+## Resizable Component
+
+In order to create a component that can be freely dragged over a panel, a panel with absolute positioning enabled must be used.
