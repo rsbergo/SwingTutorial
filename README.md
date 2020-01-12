@@ -15,7 +15,7 @@ The tutorial includes:
 - [x] Swing dialogs
 - [x] Swing models
 - [x] Drag and drop
-- [ ] Painting
+- [x] Painting
 - [ ] Resizable component
 - [ ] Puzzle
 - [ ] Tetris
