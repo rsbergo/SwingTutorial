@@ -834,3 +834,25 @@ private void updateButtons()
     panel.validate();
 }
 ```
+
+## Tetris
+
+Java enums are full classes. The `ordinal()` method returns the current position of the enum type in the enum object.
+
+The game is controlled with a keyboard. The control mechanism is implemented with a `KeyAdapter`. If, for example, the left key is pressed, the falling piece is attempted to be moved to the left:
+
+```
+@Override
+public void keyPressed(KeyEvent e)
+{
+    ...
+    int keycode = e.getKeyCode();
+    ...
+    switch (keycode)
+    {
+        case KeyEvent.VK_LEFT:
+            tryMove(curPiece, curX - 1, curY);
+            break;
+    }
+}
+```
