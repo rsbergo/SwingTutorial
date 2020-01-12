@@ -766,3 +766,5 @@ g2d.fillRect(10, 15, 90, 60);
 In computer graphics, gradient is a smooth blending of shades from light to dark or from one color to another. In 2D drawing programs and paint programs, gradients are used to create colorful backgrounds and special effects, as well as to simulate lights and shadows. To work with gradients, use Java Swing's `GradientPaint` class. By manipulating the color values and the starting and ending points, different types of gradients can be obtained. The gradient is activated calling the `setPaint()` method.
 
 Drawing text is done with the `drawString()` method. The string that is to be drawn and the position of the text on the window area are specified.
+
+An image is an array of pixels, each pixel representing a color at a given position. Components, such as `JLabel`, can be used to display an image, or the image can be drawn using the Java 2D API. Using the `ImageIcon` class simplifies the work with the images in Java Swing. The image is drawn on the component using the `drawImage()` method.
