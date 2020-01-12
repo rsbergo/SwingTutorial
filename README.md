@@ -18,7 +18,7 @@ The tutorial includes:
 - [x] Painting
 - [x] Resizable component
 - [x] Puzzle
-- [ ] Tetris
+- [x] Tetris
 
 
 ## First Programs
