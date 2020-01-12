@@ -17,7 +17,7 @@ The tutorial includes:
 - [x] Drag and drop
 - [x] Painting
 - [x] Resizable component
-- [ ] Puzzle
+- [x] Puzzle
 - [ ] Tetris
 
 
