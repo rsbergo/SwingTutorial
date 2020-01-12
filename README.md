@@ -772,3 +772,65 @@ An image is an array of pixels, each pixel representing a color at a given posit
 ## Resizable Component
 
 In order to create a component that can be freely dragged over a panel, a panel with absolute positioning enabled must be used. The `setBounds()` method relocates and resizes a component. The `revalidate()` method causes the component to be redrawn.
+
+## Puzzle
+
+The goal for this game is to form a picture. Buttons containing images are moved by clicking on them. Only buttons adjacent to the empty button can be moved.
+
+When a mouse is hovered over the button, its border changes to yellow color:
+
+```
+addMouseListener(new MouseAdapter()
+{
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+        setBorder(BorderFactory.createLineBorder(Color.yellow));
+    }
+    
+    @Override
+    public void mouseExited(MouseEvent e)
+    {
+        setBorder(BorderFactory.createLineBorder(Color.gray));
+    }
+});
+```
+
+`CropImageFilter` is used to cut a rectangular shape from the already resized image source. It is meant to be used in conjunction with a `FilteredImageSource` object to produce cropped versions of existing images:
+
+```
+image = createImage(new FilteredImageSource(resized.getSource(), new CropImageFilter(j * width / 3, i * height / 4, width / 3, height / 4)));
+```
+
+Buttons are identified by their `position` client property:
+
+```
+button.putClientProperty("position", new Point(i, j));
+```
+
+The original image is resized by creating a new `BufferedImage` with new dimensions. It paints from the original image into this new buffered image:
+
+```
+private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type)
+{
+    var resizedImage = new BufferedImage(width, height, type);
+    var g = resizedImage.createGraphics();
+    g.drawImage(originalImage, 0, 0, width, height, null);
+    g.dispose();
+    
+    return resizedImage;
+}
+```
+
+First, all components are removed with the `removeAll()` method. A for loop is used to go through the buttons list to add the reordered buttons back to the panel's layout manager. Finally, the `validate()` method implements the new layout:
+
+```
+private void updateButtons()
+{
+    panel.removeAll();
+    for (JComponent btn : buttons)
+        panel.add(btn);
+    
+    panel.validate();
+}
+```
