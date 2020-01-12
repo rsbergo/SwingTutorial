@@ -16,7 +16,7 @@ The tutorial includes:
 - [x] Swing models
 - [x] Drag and drop
 - [x] Painting
-- [ ] Resizable component
+- [x] Resizable component
 - [ ] Puzzle
 - [ ] Tetris
 
@@ -771,4 +771,4 @@ An image is an array of pixels, each pixel representing a color at a given posit
 
 ## Resizable Component
 
-In order to create a component that can be freely dragged over a panel, a panel with absolute positioning enabled must be used.
+In order to create a component that can be freely dragged over a panel, a panel with absolute positioning enabled must be used. The `setBounds()` method relocates and resizes a component. The `revalidate()` method causes the component to be redrawn.
