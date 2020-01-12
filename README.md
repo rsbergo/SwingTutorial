@@ -15,7 +15,7 @@ The tutorial includes:
 - [x] Swing dialogs
 - [x] Swing models
 - [x] Drag and drop
-- [ ] Painting
+- [x] Painting
 - [ ] Resizable component
 - [ ] Puzzle
 - [ ] Tetris
@@ -686,3 +686,85 @@ public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorExcepti
         throw new UnsupportedFlavorException(flavor);
 }
 ```
+
+## Painting
+
+Swing's painting system is able to render vector graphics, images and outline font-based text. Painting is needed in applications when it is desirable to change or enhance an existing widget, or when creating a custom widget from scratch. To do the painting, the painting API provided by the Swing toolkit is used. The painting is done within the `paintConponent()` method. In the painting process, the `Graphics2D` object is used.
+
+There are two different computer graphics:
+
+- Vector: uses geometrical primitives (such as points, lines, polylines, polygons, circles, ellipses, Splines) to represent images. These primitives are created using mathematical equations.
+- Raster: represents images as a collection of pixels.
+
+The advantages of vector graphics over raster graphics include smaller size, ability to zoom indefinitely, and moving, scaling, filling or rotating does not degrade the quality of an image.
+
+The most simple graphics primitive is point: it is a single dot on the window. There is no method to draw a point in Swing, instead the `drawLine()` method is used receiving the same point twice. Custom painting is performed inside the `paintContainer()` method. The `super.paingComponent()` method calls the method of the parent class, which does some necessary work to prepare the component for drawing.
+
+Painting in Swing is done on the `Graphics2D` object.
+
+```
+private void doDrawing(Graphics g)
+{
+    var g2d = (Graphics2D) g;
+    ...
+}
+```
+
+The size of the window includes borders and titlebar. Painting is not done there. Calculate the area where the points will be effectively painted:
+ 
+```
+var size = getSize();
+var insets = getInsets();
+
+int w = size.width - insets.left - insets.right;
+int h = size.height - insets.top - insets.bottom;
+```
+
+A line is a simple graphics primitive. It is drawn using two points. The stroke is created using the `BasicStroke` class. It defines a basic set of rendering attributes for the outlines of graphics primitives: line width, end caps, line joins, miter limit, dash, and the dash phase.
+
+To draw rectangles, use the `drawRect()` method. To fill rectangles with the current color, use the `fillRect()` method.
+
+A texture is a bitmap image applied to a shape. To work with textures in Java 2D, use the `TexturePaing` class.
+
+`BufferedImage` is a rectangle of pixels stored in memory. It is one of the most important image types in Swing. Many Swing methods return a `BufferedImage` to work with.
+
+Read the image into the buffered image using `ImageIO.read()` method. It takes a `File` object and returns a `BufferedImage`:
+
+```
+slate = ImageIO.read(new File("src/Resources/painting/slate.png"));
+```
+
+Create a `TexturePaint` class out of the buffered image:
+
+```
+var slateTp = new TexturePaint(slate, new Rectangle(0, 0, 90, 60));
+```
+
+Fill the rectangle with the texture:
+
+```
+g2d.setPaint(slateTp);
+g2d.fillRect(10, 15, 90, 60);
+```
+
+Fill the rectangle with the texture:
+
+```
+g2d.setColor(new Color(125, 167, 116));
+g2d.setPaint(slateTp);
+g2d.fillRect(10, 15, 90, 60);
+```
+
+Fill the rectangle with a solid color:
+
+```
+g2d.setPaint(slateTp);
+g2d.setColor(new Color(125, 167, 116));
+g2d.fillRect(10, 15, 90, 60);
+```
+
+In computer graphics, gradient is a smooth blending of shades from light to dark or from one color to another. In 2D drawing programs and paint programs, gradients are used to create colorful backgrounds and special effects, as well as to simulate lights and shadows. To work with gradients, use Java Swing's `GradientPaint` class. By manipulating the color values and the starting and ending points, different types of gradients can be obtained. The gradient is activated calling the `setPaint()` method.
+
+Drawing text is done with the `drawString()` method. The string that is to be drawn and the position of the text on the window area are specified.
+
+An image is an array of pixels, each pixel representing a color at a given position. Components, such as `JLabel`, can be used to display an image, or the image can be drawn using the Java 2D API. Using the `ImageIcon` class simplifies the work with the images in Java Swing. The image is drawn on the component using the `drawImage()` method.
